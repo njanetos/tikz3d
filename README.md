@@ -13,25 +13,29 @@ using namespace std;
 
 int main() {
 
+    // Create a camera at coordinates (62, 56, 48), and set it to rotate
+    // 90 degrees around the x axis, then 90 degrees around the z axis
+    // so it points at (0, 0, 0).
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
+    // Initialize a scene manager to allocate memory for scene objects.
     c_scene_manager scene_manager;
 
+    // Create lines to define a 6x6x6 cube.
     c_line line1(0, 0, 0, 6, 0, 0);
     c_line line2(6, 0, 0, 6, 6, 0);
     c_line line3(6, 6, 0, 0, 6, 0);
     c_line line4(0, 6, 0, 0, 0, 0);
-
     c_line line5(0, 0, 6, 6, 0, 6);
     c_line line6(6, 0, 6, 6, 6, 6);
     c_line line7(6, 6, 6, 0, 6, 6);
     c_line line8(0, 6, 6, 0, 0, 6);
-
     c_line line9(0, 0, 0, 0, 0, 6);
     c_line line10(0, 6, 0, 0, 6, 6);
     c_line line11(6, 0, 0, 6, 0, 6);
     c_line line12(6, 6, 0, 6, 6, 6);
 
+    // Add all the lines to the scene.
     scene_manager.add_to_scene(&line1);
     scene_manager.add_to_scene(&line2);
     scene_manager.add_to_scene(&line3);
@@ -45,11 +49,13 @@ int main() {
     scene_manager.add_to_scene(&line11);
     scene_manager.add_to_scene(&line12);
 
+    // Render the scene to file as a regular (no 3d glasses) projection.
     scene_manager.render_to_file("test.txt", &camera);
 
     c_camera eye_1(62, 56, 48, -3.14/4, 0, -3.14/4);
     c_camera eye_2(63, 55, 48, -3.14/4, 0, -3.14/4);
 
+    // Render it to file as a 3D glasses projection.
     scene_manager.render_3d_to_file("test3d.txt", &eye_1, &eye_2);
 
     return 0;
