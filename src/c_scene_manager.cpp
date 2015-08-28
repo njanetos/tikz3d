@@ -104,7 +104,7 @@ void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_
 
 }
 
-void c_scene_manager::render_cross_to_file(std::string filename, c_camera *cam) {
+void c_scene_manager::render_cross_to_file(std::string filename, c_camera *eye_1, c_camera *eye_2) {
 
     std::ofstream sstm;
     sstm.open(filename);
@@ -117,7 +117,7 @@ void c_scene_manager::render_cross_to_file(std::string filename, c_camera *cam) 
 
     // Project everything for the first eye
     for (size_t i = 0; i < scene_objects.size(); ++i) {
-        screen_objects[i] = scene_objects[i]->project(cam);
+        screen_objects[i] = scene_objects[i]->project(eye_1);
     }
 
     // Write to file
@@ -136,7 +136,7 @@ void c_scene_manager::render_cross_to_file(std::string filename, c_camera *cam) 
 
     // Project everything for the second eye
     for (size_t i = 0; i < scene_objects.size(); ++i) {
-        screen_objects[i] = scene_objects[i]->project(cam);
+        screen_objects[i] = scene_objects[i]->project(eye_2);
     }
 
     // Write to file

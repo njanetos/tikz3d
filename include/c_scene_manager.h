@@ -48,7 +48,7 @@ class c_scene_manager {
          */
         void render_3d_to_file(std::string filename, c_camera *eye1, c_camera *eye2);
 
-        void render_cross_to_file(std::string filename, c_camera *cam);
+        void render_cross_to_file(std::string filename, c_camera *eye_1, c_camera *eye_2);
 
     private:
 
