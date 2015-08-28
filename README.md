@@ -14,7 +14,7 @@ using namespace std;
 int main() {
 
     // Create a camera at coordinates (62, 56, 48), and set it to rotate
-    // 90 degrees around the x axis, then 90 degrees around the z axis
+    // 45 degrees around the x axis, then 45 degrees around the z axis
     // so it points at (0, 0, 0).
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
