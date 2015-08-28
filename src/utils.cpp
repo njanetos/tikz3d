@@ -8,8 +8,6 @@ c_point utils::project(c_point *point3d, c_camera *cam) {
 
 c_point utils::project(real _x, real _y, real _z, c_camera *cam) {
 
-    std::cout << "Starting with " << _x << ", " << _y << ", " << _z << ".\n";
-
     real dx, dy, dz;
 
     real x = _x - cam->pos_x;
@@ -30,8 +28,6 @@ c_point utils::project(real _x, real _y, real _z, c_camera *cam) {
 
     real bx = 48*dx/dz;
     real by = 48*dy/dz;
-
-    std::cout << "Ending with " << bx << ", " << by << ".\n";
 
     c_point point(bx, by);
 
