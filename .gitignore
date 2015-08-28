@@ -1,0 +1,11 @@
+*.o
+*.so
+*.cbp
+*.depend
+*.layout
+*.log
+*.aux
+
+/bin
+
+test.txt
