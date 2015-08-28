@@ -9,15 +9,8 @@ class c_polygon : public c_tikz_obj
 {
     public:
         c_polygon();
-        c_polygon(real ax,
-                  real ay,
-                  real az,
-                  real bx,
-                  real by,
-                  real bz,
-                  real cx,
-                  real cy,
-                  real cz);
+        c_polygon(real ax, real ay, real az, real bx, real by, real bz, real cx, real cy, real cz);
+        c_polygon(real ax, real ay, real az, real bx, real by, real bz, real cx, real cy, real cz, std::string params);
         virtual ~c_polygon();
 
         std::string write(std::string params);

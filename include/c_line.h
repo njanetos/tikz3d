@@ -9,6 +9,7 @@ class c_line : public c_tikz_obj
     public:
         c_line();
         c_line(real sx, real sy, real sz, real ex, real ey, real ez);
+        c_line(real sx, real sy, real sz, real ex, real ey, real ez, std::string params);
         virtual ~c_line();
 
         real sx, sy, sz, ex, ey, ez;

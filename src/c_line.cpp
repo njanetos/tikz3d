@@ -10,6 +10,7 @@ c_line::c_line() {
     ex = 0;
     ey = 0;
     ez = 0;
+    this->params = "";
 }
 
 c_line::c_line(real sx, real sy, real sz, real ex, real ey, real ez) {
@@ -19,7 +20,19 @@ c_line::c_line(real sx, real sy, real sz, real ex, real ey, real ez) {
     this->ex = ex;
     this->ey = ey;
     this->ez = ez;
+    this->params = "";
 }
+
+c_line::c_line(real sx, real sy, real sz, real ex, real ey, real ez, std::string params) {
+    this->sx = sx;
+    this->sy = sy;
+    this->sz = sz;
+    this->ex = ex;
+    this->ey = ey;
+    this->ez = ez;
+    this->params = params;
+}
+
 
 c_line::~c_line() {
     //dtor
@@ -34,7 +47,7 @@ std::string c_line::write(std::string params) {
 
     std::stringstream sstm;
 
-    sstm << "\\draw[" << params << "] (" << sx << ", " << sy << ") -- (" << ex << ", " << ey << ");";
+    sstm << "\\draw[" << params << this->params << "] (" << sx << ", " << sy << ") -- (" << ex << ", " << ey << ");";
 
     return sstm.str();
 }
