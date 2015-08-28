@@ -6,9 +6,10 @@ c_node::c_node() {
     //ctor
 }
 
-c_node::c_node(real x, real y, std::string text) {
+c_node::c_node(real x, real y, real z, std::string text) {
     this->x = x;
     this->y = y;
+    this->z = z;
     this->text = text;
 }
 
@@ -29,5 +30,8 @@ std::string c_node::write(std::string params) {
 }
 
 c_tikz_obj* c_node::clone() {
+
+    c_node *node = new c_node(x, y, z, text);
+    return node;
 
 }

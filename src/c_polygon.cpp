@@ -47,4 +47,8 @@ std::string c_polygon::write(std::string params) {
 
 c_tikz_obj* c_polygon::clone() {
 
+    c_polygon *polygon = new c_polygon(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z);
+
+    return polygon;
+
 }
