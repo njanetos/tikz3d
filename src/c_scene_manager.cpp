@@ -102,6 +102,59 @@ void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_
 
     sstm.close();
 
+}
+
+void c_scene_manager::render_cross_to_file(std::string filename, c_camera *cam) {
+
+    std::ofstream sstm;
+    sstm.open(filename);
+
+    sstm << "\\begin{tikzpicture}\n";
+
+    sstm << "  \\draw (0, 0)--(0,0.01); \n";
+
+    std::vector<c_tikz_obj*> screen_objects(scene_objects.size());
+
+    // Project everything for the first eye
+    for (size_t i = 0; i < scene_objects.size(); ++i) {
+        screen_objects[i] = scene_objects[i]->project(cam);
+    }
+
+    // Write to file
+    for (size_t i = 0; i < screen_objects.size(); ++i) {
+        screen_objects[i]->add_param("xshift=0in");
+        sstm << "   " << screen_objects[i]->write();
+        sstm << "\n";
+    }
+
+    // De-allocate all of the screen objects
+    for (size_t i = 0; i < screen_objects.size(); ++i) {
+        delete screen_objects[i];
+    }
+
+    screen_objects.resize(scene_objects.size());
+
+    // Project everything for the second eye
+    for (size_t i = 0; i < scene_objects.size(); ++i) {
+        screen_objects[i] = scene_objects[i]->project(cam);
+    }
+
+    // Write to file
+    for (size_t i = 0; i < screen_objects.size(); ++i) {
+        screen_objects[i]->add_param("xshift=4in");
+        sstm << "  " << screen_objects[i]->write();
+        sstm << "\n";
+    }
+
+    // De-allocate all of the screen objects
+    for (size_t i = 0; i < screen_objects.size(); ++i) {
+        delete screen_objects[i];
+    }
+
+    sstm << "\\end{tikzpicture}";
+
+    sstm.close();
+
 
 
 }

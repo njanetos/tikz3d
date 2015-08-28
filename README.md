@@ -19,7 +19,6 @@ Example:
 
 using namespace std;
 
-
 int main() {
 
     // Create a camera at coordinates (62, 56, 48), and set it to rotate
@@ -65,6 +64,9 @@ int main() {
     line11.add_param("ultra thick");
     line12.add_param("ultra thick");
 
+    polygon1.add_param("opacity=0.2");
+    polygon2.add_param("opacity=0.2");
+
     // Add all the lines to the scene.
     scene_manager.add_to_scene(&line1);
     scene_manager.add_to_scene(&line2);
@@ -90,6 +92,9 @@ int main() {
 
     // Render it to file as a 3D glasses projection.
     scene_manager.render_3d_to_file("test3d.txt", &eye_1, &eye_2);
+
+    // Render a 'cross-eyed' projection.
+    scene_manager.render_cross_to_file("testCross.txt", &camera);
 
     return 0;
 }
