@@ -8,8 +8,24 @@
 class c_polygon : public c_tikz_obj
 {
     public:
+
         c_polygon();
+
+        /**
+         *  Polygon constructor.
+         *
+         *  \param ax X coordinate of 1st point.
+         *  \param ay Y coordinate of 1st point.
+         *  \param az Z coordinate of 1st point.
+         *  \param bx X coordinate of 2st point.
+         *  \param by Y coordinate of 2st point.
+         *  \param bz Z coordinate of 2st point.
+         *  \param cx X coordinate of 3st point.
+         *  \param cy Y coordinate of 3st point.
+         *  \param cz Z coordinate of 3st point.
+         */
         c_polygon(real ax, real ay, real az, real bx, real by, real bz, real cx, real cy, real cz);
+
         virtual ~c_polygon();
 
         std::string write();

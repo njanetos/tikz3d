@@ -7,17 +7,31 @@
 class c_line : public c_tikz_obj
 {
     public:
-        c_line();
-        c_line(real sx, real sy, real sz, real ex, real ey, real ez);
-        virtual ~c_line();
 
-        real sx, sy, sz, ex, ey, ez;
+        /**
+         *  Empty constructor.
+         */
+        c_line();
+
+        /**
+         *  Line constructor.
+         *
+         *  \param sx Start X coordinate.
+         *  \param sy Start Y coordinate.
+         *  \param sz Start Z coordinate.
+         *  \param ex End X coordinate.
+         *  \param ey End Y coordinate.
+         *  \param ez End Z coordinate.
+         */
+        c_line(real sx, real sy, real sz, real ex, real ey, real ez);
+
+        virtual ~c_line();
 
         std::string write();
         c_tikz_obj* project(c_camera *cam);
         c_tikz_obj* clone();
-    protected:
-    private:
+
+        real sx, sy, sz, ex, ey, ez;
 };
 
 #endif // C_LINE_H
