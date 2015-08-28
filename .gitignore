@@ -6,6 +6,6 @@
 *.log
 *.aux
 
+main.cpp
 /bin
-
 test.txt
