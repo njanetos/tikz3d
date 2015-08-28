@@ -12,6 +12,8 @@ Example:
 #include "c_camera.h"
 #include "c_point.h"
 #include "c_line.h"
+#include "c_polygon.h"
+#include "c_node.h"
 #include "c_scene_manager.h"
 #include "utils.h"
 
@@ -42,6 +44,13 @@ int main() {
     c_line line11(6, 0, 0, 6, 0, 6);
     c_line line12(6, 6, 0, 6, 6, 6);
 
+    // Shade in the bottom of the cube
+    c_polygon polygon1(0, 0, 0, 0, 6, 0, 6, 6, 0);
+    c_polygon polygon2(0, 0, 0, 6, 0, 0, 6, 6, 0);
+
+    // Add some text in the middle of the cube
+    c_node node(3, 3, 3, "socks");
+
     // Make it so the lines are drawn extra thick
     line1.add_param("ultra thick");
     line2.add_param("ultra thick");
@@ -69,6 +78,9 @@ int main() {
     scene_manager.add_to_scene(&line10);
     scene_manager.add_to_scene(&line11);
     scene_manager.add_to_scene(&line12);
+    scene_manager.add_to_scene(&polygon1);
+    scene_manager.add_to_scene(&polygon2);
+    scene_manager.add_to_scene(&node);
 
     // Render the scene to file as a regular (no 3d glasses) projection.
     scene_manager.render_to_file("test.txt", &camera);
