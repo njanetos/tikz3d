@@ -4,7 +4,7 @@ Library for generating nice 3D pictures in tikz that are readable with 3D glasse
 
 Example:
 
-```{c}
+```{c++}
 #include "c_camera.h"
 #include "c_line.h"
 #include "c_scene_manager.h"
@@ -56,4 +56,4 @@ int main() {
 }
 ```
 
-See `test.pdf` to see the output of this code. 
+See `test.pdf` to see the output of this code.
