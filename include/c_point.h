@@ -12,10 +12,9 @@ class c_point : public c_tikz_obj
         c_point();
         c_point(real x, real y);
         c_point(real x, real y, real z);
-        c_point(real x, real y, real z, std::string params);
         virtual ~c_point();
 
-        std::string write(std::string params);
+        std::string write();
         c_tikz_obj* project(c_camera *cam);
         c_tikz_obj* clone();
 

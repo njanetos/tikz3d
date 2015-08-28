@@ -5,11 +5,18 @@ Library for generating nice 3D pictures in tikz that are readable with 3D glasse
 Example:
 
 ```{c++}
+#include <iostream>
+
+#include <vector>
+
 #include "c_camera.h"
+#include "c_point.h"
 #include "c_line.h"
 #include "c_scene_manager.h"
+#include "utils.h"
 
 using namespace std;
+
 
 int main() {
 
@@ -34,6 +41,20 @@ int main() {
     c_line line10(0, 6, 0, 0, 6, 6);
     c_line line11(6, 0, 0, 6, 0, 6);
     c_line line12(6, 6, 0, 6, 6, 6);
+
+    // Make it so the lines are drawn extra thick
+    line1.add_param("ultra thick");
+    line2.add_param("ultra thick");
+    line3.add_param("ultra thick");
+    line4.add_param("ultra thick");
+    line5.add_param("ultra thick");
+    line6.add_param("ultra thick");
+    line7.add_param("ultra thick");
+    line8.add_param("ultra thick");
+    line9.add_param("ultra thick");
+    line10.add_param("ultra thick");
+    line11.add_param("ultra thick");
+    line12.add_param("ultra thick");
 
     // Add all the lines to the scene.
     scene_manager.add_to_scene(&line1);
@@ -60,6 +81,7 @@ int main() {
 
     return 0;
 }
+
 ```
 
 See `test.pdf` to see the output of this code.

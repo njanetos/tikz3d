@@ -11,15 +11,6 @@ c_node::c_node(real x, real y, real z, std::string text) {
     this->y = y;
     this->z = z;
     this->text = text;
-    this->params = "";
-}
-
-c_node::c_node(real x, real y, real z, std::string text, std::string params) {
-    this->x = x;
-    this->y = y;
-    this->z = z;
-    this->text = text;
-    this->params = params;
 }
 
 c_node::~c_node() {
@@ -30,10 +21,17 @@ c_tikz_obj* c_node::project(c_camera *cam) {
     return cam->project(this);
 }
 
-std::string c_node::write(std::string params) {
+std::string c_node::write() {
     std::stringstream sstm;
 
-    sstm << "\\node[" << params << this->params << "] at (" << x << ", " << y << ") {" << text << "};\n";
+    sstm << "\\node[";
+    if (params.size() > 0) {
+        sstm << params[0];
+    }
+    for (size_t i = 1; i < params.size(); ++i) {
+        sstm << ", " << params[i];
+    }
+    sstm << "] at (" << x << ", " << y << ") {" << text << "};\n";
 
     return sstm.str();
 }
@@ -41,6 +39,7 @@ std::string c_node::write(std::string params) {
 c_tikz_obj* c_node::clone() {
 
     c_node *node = new c_node(x, y, z, text);
+    node->add_params(params);
     return node;
 
 }

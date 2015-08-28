@@ -35,7 +35,7 @@ void c_scene_manager::render_to_file(std::string filename, c_camera *cam) {
     sstm << "\\draw (0, 0)--(0,0.01);";
 
     for (size_t i = 0; i < screen_objects.size(); ++i) {
-        sstm << "   " << screen_objects[i]->write("ultra thick");
+        sstm << "   " << screen_objects[i]->write();
         sstm << "\n";
     }
 
@@ -67,7 +67,9 @@ void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_
 
     // Write to file
     for (size_t i = 0; i < screen_objects.size(); ++i) {
-        sstm << "   " << screen_objects[i]->write("ultra thick, color=green, opacity=0.5");
+        screen_objects[i]->add_param("color=green");
+        screen_objects[i]->add_param("opacity=0.5");
+        sstm << "   " << screen_objects[i]->write();
         sstm << "\n";
     }
 
@@ -85,7 +87,9 @@ void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_
 
     // Write to file
     for (size_t i = 0; i < screen_objects.size(); ++i) {
-        sstm << "  " << screen_objects[i]->write("ultra thick, color=red, opacity=0.5");
+        screen_objects[i]->add_param("color=red");
+        screen_objects[i]->add_param("opacity=0.5");
+        sstm << "  " << screen_objects[i]->write();
         sstm << "\n";
     }
 
