@@ -47,6 +47,20 @@ class c_point : public c_tikz_obj
         c_tikz_obj* project(c_camera *cam);
         c_tikz_obj* clone();
 
+        c_point operator+(const c_point& c) {
+            c_point point(this->x + c.x, this->y + c.y, this->z + c.z);
+            return point;
+        }
+
+        c_point operator-(const c_point& c) {
+            c_point point(this->x - c.x, this->y - c.y, this->z - c.z);
+            return point;
+        }
+
+        real operator*(const c_point& c) {
+            return this->x * c.x + this->y * c.y + this->z * c.z;
+        }
+
         real x, y, z;
         bool twod;
     protected:

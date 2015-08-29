@@ -50,6 +50,8 @@ class utils {
         static std::vector<c_tikz_obj*> split(c_node *obj1, c_polygon *obj2);
         static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_polygon *obj2);
 
+        static bool is_above(c_point *point, c_polygon *polygon);
+
 };
 
 #endif // UTILS_H

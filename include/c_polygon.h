@@ -37,6 +37,9 @@ class c_polygon : public c_tikz_obj
         std::vector<c_tikz_obj*> split(c_point *obj);
         std::vector<c_tikz_obj*> split(c_node *obj);
         std::string write();
+
+        c_point normal();
+
         c_tikz_obj* project(c_camera *cam);
         c_tikz_obj* clone();
 
