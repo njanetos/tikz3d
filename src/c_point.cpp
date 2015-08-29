@@ -53,3 +53,23 @@ c_tikz_obj* c_point::clone() {
     c->add_params(params);
     return c;
 }
+
+std::vector<c_tikz_obj*> c_point::split(c_tikz_obj *obj) {
+    return obj->split(this);
+}
+
+std::vector<c_tikz_obj*> c_point::split(c_polygon *obj) {
+    return utils::split(obj, this);
+}
+
+std::vector<c_tikz_obj*> c_point::split(c_line *obj) {
+    return utils::split(obj, this);
+}
+
+std::vector<c_tikz_obj*> c_point::split(c_point *obj) {
+    return utils::split(obj, this);
+}
+
+std::vector<c_tikz_obj*> c_point::split(c_node *obj) {
+    return utils::split(obj, this);
+}

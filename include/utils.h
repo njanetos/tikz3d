@@ -32,6 +32,24 @@ class utils {
          *  \return The projected point.
          */
         static c_point project(real _x, real _y, real _z, c_camera *cam);
+
+        static std::vector<c_tikz_obj*> split(c_point *obj1, c_point *obj2);
+        static std::vector<c_tikz_obj*> split(c_line *obj1, c_point *obj2);
+        static std::vector<c_tikz_obj*> split(c_node *obj1, c_point *obj2);
+        static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_point *obj2);
+        static std::vector<c_tikz_obj*> split(c_point *obj1, c_line *obj2);
+        static std::vector<c_tikz_obj*> split(c_line *obj1, c_line *obj2);
+        static std::vector<c_tikz_obj*> split(c_node *obj1, c_line *obj2);
+        static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_line *obj2);
+        static std::vector<c_tikz_obj*> split(c_point *obj1, c_node *obj2);
+        static std::vector<c_tikz_obj*> split(c_line *obj1, c_node *obj2);
+        static std::vector<c_tikz_obj*> split(c_node *obj1, c_node *obj2);
+        static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_node *obj2);
+        static std::vector<c_tikz_obj*> split(c_point *obj1, c_polygon *obj2);
+        static std::vector<c_tikz_obj*> split(c_line *obj1, c_polygon *obj2);
+        static std::vector<c_tikz_obj*> split(c_node *obj1, c_polygon *obj2);
+        static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_polygon *obj2);
+
 };
 
 #endif // UTILS_H

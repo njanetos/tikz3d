@@ -34,3 +34,83 @@ c_point utils::project(real _x, real _y, real _z, c_camera *cam) {
     return point;
 
 }
+
+std::vector<c_tikz_obj*> utils::split(c_point *obj1, c_point *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_line *obj1, c_point *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_node *obj1, c_point *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_polygon *obj1, c_point *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_point *obj1, c_line *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_line *obj1, c_line *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_node *obj1, c_line *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_polygon *obj1, c_line *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_point *obj1, c_node *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_line *obj1, c_node *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_node *obj1, c_node *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_polygon *obj1, c_node *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_point *obj1, c_polygon *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_line *obj1, c_polygon *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_node *obj1, c_polygon *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}
+
+std::vector<c_tikz_obj*> utils::split(c_polygon *obj1, c_polygon *obj2) {
+    std::vector<c_tikz_obj*> emp(0);
+    return emp;
+}

@@ -4,6 +4,10 @@
 #include "common.h"
 
 class c_camera;
+class c_point;
+class c_line;
+class c_node;
+class c_polygon;
 
 class c_tikz_obj {
     public:
@@ -26,6 +30,12 @@ class c_tikz_obj {
          *  \return Pointer to projected object.
          */
         virtual c_tikz_obj* project(c_camera *cam) =0;
+
+        virtual std::vector<c_tikz_obj*> split(c_tikz_obj *obj) =0;
+        virtual std::vector<c_tikz_obj*> split(c_polygon *obj) =0;
+        virtual std::vector<c_tikz_obj*> split(c_line *obj) =0;
+        virtual std::vector<c_tikz_obj*> split(c_point *obj) =0;
+        virtual std::vector<c_tikz_obj*> split(c_node *obj) =0;
 
         /**
          *  Clones this object onto the heap.

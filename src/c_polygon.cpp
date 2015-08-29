@@ -58,3 +58,23 @@ c_tikz_obj* c_polygon::clone() {
     return polygon;
 
 }
+
+std::vector<c_tikz_obj*> c_polygon::split(c_tikz_obj *obj) {
+    return obj->split(this);
+}
+
+std::vector<c_tikz_obj*> c_polygon::split(c_polygon *obj) {
+    return utils::split(obj, this);
+}
+
+std::vector<c_tikz_obj*> c_polygon::split(c_line *obj) {
+    return utils::split(obj, this);
+}
+
+std::vector<c_tikz_obj*> c_polygon::split(c_point *obj) {
+    return utils::split(obj, this);
+}
+
+std::vector<c_tikz_obj*> c_polygon::split(c_node *obj) {
+    return utils::split(obj, this);
+}
