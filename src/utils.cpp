@@ -2,6 +2,23 @@
 
 #include "c_polygon.h"
 
+char utils::is_located(c_point *point, c_polygon *polygon) {
+
+    c_point normal = polygon->normal();
+
+    real dot = normal*(*point - polygon->c);
+
+    // Above, below, or at?
+    if (dot > PRECISION) {
+        return 0;
+    } else if (dot < PRECISION) {
+        return 1;
+    } else {
+        return 2;
+    }
+
+}
+
 c_point utils::project(c_point *point3d, c_camera *cam) {
 
     return project(point3d->x, point3d->y, point3d->z, cam);

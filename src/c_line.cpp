@@ -50,3 +50,8 @@ c_tikz_obj* c_line::clone() {
     line->add_params(params);
     return line;
 }
+
+std::vector<std::vector<c_tikz_obj*>> c_line::split(c_polygon *against) {
+    std::vector<std::vector<c_tikz_obj*>> emp(0);
+    return emp;
+}

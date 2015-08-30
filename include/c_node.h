@@ -36,6 +36,8 @@ class c_node : public c_tikz_obj
         c_tikz_obj* project(c_camera *cam);
         c_tikz_obj* clone();
 
+        std::vector<std::vector<c_tikz_obj*>> split(c_polygon *against);
+
         real x, y, z;
         std::string text;
 };

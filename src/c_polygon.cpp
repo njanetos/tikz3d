@@ -69,3 +69,8 @@ c_point c_polygon::normal() {
     c_point point(x, y, z);
     return point;
 }
+
+std::vector<std::vector<c_tikz_obj*>> c_polygon::split(c_polygon *against) {
+    std::vector<std::vector<c_tikz_obj*>> emp(0);
+    return emp;
+}

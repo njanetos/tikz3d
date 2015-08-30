@@ -13,6 +13,8 @@ class utils {
     */
     public:
 
+        static char is_located(c_point *point, c_polygon *polygon);
+
         /**
          *  Projects a point onto the plane using the camera.
          *

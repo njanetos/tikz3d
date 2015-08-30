@@ -43,3 +43,8 @@ c_tikz_obj* c_node::clone() {
     return node;
 
 }
+
+std::vector<std::vector<c_tikz_obj*>> c_node::split(c_polygon *against) {
+    std::vector<std::vector<c_tikz_obj*>> emp(0);
+    return emp;
+}

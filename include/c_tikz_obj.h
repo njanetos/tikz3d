@@ -17,34 +17,6 @@ class c_tikz_obj {
         virtual ~c_tikz_obj();
 
         /**
-         *  Writes this object to tikz code.
-         *
-         *  \return A string containing the tikz code.
-         */
-        virtual std::string write() =0;
-
-        /**
-         *  Projects this object against a camera.
-         *
-         *  \param cam The camera to project against.
-         *  \return Pointer to projected object.
-         */
-        virtual c_tikz_obj* project(c_camera *cam) =0;
-
-        virtual std::vector<c_tikz_obj*> split(c_tikz_obj *obj) =0;
-        virtual std::vector<c_tikz_obj*> split(c_polygon *obj) =0;
-        virtual std::vector<c_tikz_obj*> split(c_line *obj) =0;
-        virtual std::vector<c_tikz_obj*> split(c_point *obj) =0;
-        virtual std::vector<c_tikz_obj*> split(c_node *obj) =0;
-
-        /**
-         *  Clones this object onto the heap.
-         *
-         *  \return Pointer to the cloned object.
-         */
-        virtual c_tikz_obj* clone() =0;
-
-        /**
          *  Adds a parameter to be rendered to tikz.
          *
          *  \param param The parameter, e.g., color=green.
@@ -57,6 +29,30 @@ class c_tikz_obj {
          *  \param params Vector of parameters to render.
          */
         void add_params(std::vector<std::string> params);
+
+        /**
+         *  Clones this object onto the heap.
+         *
+         *  \return Pointer to the cloned object.
+         */
+        virtual c_tikz_obj* clone() =0;
+
+        /**
+         *  Projects this object against a camera.
+         *
+         *  \param cam The camera to project against.
+         *  \return Pointer to projected object.
+         */
+        virtual c_tikz_obj* project(c_camera *cam) =0;
+
+        virtual std::vector<std::vector<c_tikz_obj*>> split(c_polygon *against) =0;
+
+        /**
+         *  Writes this object to tikz code.
+         *
+         *  \return A string containing the tikz code.
+         */
+        virtual std::string write() =0;
 
         /**
          *  A list of parameters for tikz.

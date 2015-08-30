@@ -42,6 +42,8 @@ class c_point : public c_tikz_obj
         c_tikz_obj* project(c_camera *cam);
         c_tikz_obj* clone();
 
+        std::vector<std::vector<c_tikz_obj*>> split(c_polygon *against);
+
         c_point operator+(const c_point& c) {
             c_point point(this->x + c.x, this->y + c.y, this->z + c.z);
             return point;
