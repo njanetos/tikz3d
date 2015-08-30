@@ -2,6 +2,7 @@
 
 #include "c_camera.h"
 #include "c_point.h"
+#include "c_polygon.h"
 
 c_line::c_line() {
     sx = 0;
@@ -64,9 +65,54 @@ std::vector<std::vector<c_tikz_obj*>> c_line::split(c_polygon *against) {
         // Either entirely above, entirely behind, or entirely contained within.
         ret[loc_s].push_back(clone());
         return ret;
+    } else if (loc_s == 1) {
+        // The start barely touches but is still behind / below
+        ret[loc_e].push_back(clone());
+    } else if (loc_e == 1) {
+        // The end just barely touches but it is still behind / below
+        ret[loc_e].push_back(clone());
     }
 
+    // loc_s != loc_e, and neither equals 1.
 
+    real t;
+
+    t = utils::det4(1, 1, 1, 1,
+                    against->a.x, against->b.x, against->c.x, sx,
+                    against->a.y, against->b.y, against->c.y, sy,
+                    against->a.z, against->b.z, against->c.z, sz);
+
+    t = t / utils::det4(1, 1, 1, 0,
+                        against->a.x, against->b.x, against->c.x, ex - sx,
+                        against->a.y, against->b.y, against->c.y, ey - sy,
+                        against->a.z, against->b.z, against->c.z, ez - sz);
+
+    real int_x, int_y, int_z;
+
+    int_x = t*sx + (1-t)*ex;
+    int_y = t*sy + (1-t)*ey;
+    int_z = t*sz + (1-t)*ez;
+
+    c_line *line_start = new c_line();
+    c_line *line_end = new c_line();
+
+    line_start->sx = sx;
+    line_start->sy = sy;
+    line_start->sz = sz;
+    line_start->ex = int_x;
+    line_start->ey = int_y;
+    line_start->ez = int_z;
+
+    line_end->sx = int_x;
+    line_end->sy = int_y;
+    line_end->sz = int_z;
+    line_end->ex = ex;
+    line_end->ey = ey;
+    line_end->ez = ez;
+
+    // Add the splitted guys to the correct position in the vector.
+    ret[loc_s].push_back(line_start);
+    ret[loc_e].push_back(line_end);
 
     return ret;
 }
