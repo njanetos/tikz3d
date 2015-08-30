@@ -55,6 +55,12 @@ c_tikz_obj* c_point::clone() {
 }
 
 std::vector<std::vector<c_tikz_obj*>> c_point::split(c_polygon *against) {
-    std::vector<std::vector<c_tikz_obj*>> emp(0);
-    return emp;
+
+    std::vector<std::vector<c_tikz_obj*>> ret(3);
+
+    char loc = utils::is_located(this, against);
+
+    ret[loc].push_back(this);
+
+    return ret;
 }

@@ -8,13 +8,13 @@ char utils::is_located(c_point *point, c_polygon *polygon) {
 
     real dot = normal*(*point - polygon->c);
 
-    // Above, below, or at?
+    // Above, at, or below?
     if (dot > PRECISION) {
         return 0;
     } else if (dot < PRECISION) {
-        return 1;
-    } else {
         return 2;
+    } else {
+        return 1;
     }
 
 }
