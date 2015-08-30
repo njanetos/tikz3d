@@ -33,25 +33,6 @@ class utils {
          */
         static c_point project(real _x, real _y, real _z, c_camera *cam);
 
-        static std::vector<c_tikz_obj*> split(c_point *obj1, c_point *obj2);
-        static std::vector<c_tikz_obj*> split(c_line *obj1, c_point *obj2);
-        static std::vector<c_tikz_obj*> split(c_node *obj1, c_point *obj2);
-        static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_point *obj2);
-        static std::vector<c_tikz_obj*> split(c_point *obj1, c_line *obj2);
-        static std::vector<c_tikz_obj*> split(c_line *obj1, c_line *obj2);
-        static std::vector<c_tikz_obj*> split(c_node *obj1, c_line *obj2);
-        static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_line *obj2);
-        static std::vector<c_tikz_obj*> split(c_point *obj1, c_node *obj2);
-        static std::vector<c_tikz_obj*> split(c_line *obj1, c_node *obj2);
-        static std::vector<c_tikz_obj*> split(c_node *obj1, c_node *obj2);
-        static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_node *obj2);
-        static std::vector<c_tikz_obj*> split(c_point *obj1, c_polygon *obj2);
-        static std::vector<c_tikz_obj*> split(c_line *obj1, c_polygon *obj2);
-        static std::vector<c_tikz_obj*> split(c_node *obj1, c_polygon *obj2);
-        static std::vector<c_tikz_obj*> split(c_polygon *obj1, c_polygon *obj2);
-
-        static bool is_above(c_point *point, c_polygon *polygon);
-
 };
 
 #endif // UTILS_H

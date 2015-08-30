@@ -31,11 +31,6 @@ class c_polygon : public c_tikz_obj
 
         virtual ~c_polygon();
 
-        std::vector<c_tikz_obj*> split(c_tikz_obj *obj);
-        std::vector<c_tikz_obj*> split(c_polygon *obj);
-        std::vector<c_tikz_obj*> split(c_line *obj);
-        std::vector<c_tikz_obj*> split(c_point *obj);
-        std::vector<c_tikz_obj*> split(c_node *obj);
         std::string write();
 
         c_point normal();
