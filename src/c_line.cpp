@@ -111,6 +111,7 @@ std::vector<std::vector<c_tikz_obj*>> c_line::split(c_polygon *against) {
     line_end->ez = ez;
 
     // Add the splitted guys to the correct position in the vector.
+    // Add the splitted guys to the correct position in the vector.
     ret[loc_s].push_back(line_start);
     ret[loc_e].push_back(line_end);
 
