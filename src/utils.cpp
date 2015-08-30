@@ -2,6 +2,24 @@
 
 #include "c_polygon.h"
 
+real utils::det2(real a, real b,
+                 real c, real d) {
+    return a*d - b*c;
+}
+
+real utils::det3(real a, real b, real c,
+                 real d, real e, real f,
+                 real g, real h, real k) {
+    return a*det2(e, f, h, k) - b*det2(d, f, g, k) + c*det2(d, e, g, h);
+}
+
+real utils::det4(real a, real b, real c, real d,
+                 real e, real f, real g, real h,
+                 real i, real j, real k, real l,
+                 real m, real n, real o, real p) {
+    return a*det3(f, g, h, j, k, l, n, o, p) - b*det3(e, g, h, i, k, l, m, o, p) + c*det3(e, f, h, i, j, l, m, n, p) - d*det3(e, f, g, i, j, k, m, n, o);
+}
+
 char utils::is_located(c_point *point, c_polygon *polygon) {
 
     c_point normal = polygon->normal();
@@ -16,6 +34,14 @@ char utils::is_located(c_point *point, c_polygon *polygon) {
     } else {
         return 1;
     }
+
+}
+
+char utils::is_located(real x, real y, real z, c_polygon *polygon) {
+
+    c_point point(x, y, z);
+
+    return is_located(&point, polygon);
 
 }
 
