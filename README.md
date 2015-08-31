@@ -1,5 +1,7 @@
 # tikz3D
 
+build status goes here
+
 Library for generating nice 3D pictures in tikz that are readable with 3D glasses.
 
 Example:
