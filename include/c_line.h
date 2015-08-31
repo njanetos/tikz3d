@@ -37,7 +37,11 @@ class c_line : public c_tikz_obj
 
         std::vector<std::vector<c_tikz_obj*>> split(c_polygon *against);
 
+        std::ostream& operator<< (std::ostream& stream);
+
         real sx, sy, sz, ex, ey, ez;
 };
+
+std::ostream& operator<< (std::ostream& stream, const c_point& obj);
 
 #endif // C_LINE_H

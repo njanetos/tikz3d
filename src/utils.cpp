@@ -29,7 +29,7 @@ char utils::is_located(c_point *point, c_polygon *polygon) {
     // Above, at, or below?
     if (dot > PRECISION) {
         return 0;
-    } else if (dot < PRECISION) {
+    } else if (dot < -1*PRECISION) {
         return 2;
     } else {
         return 1;

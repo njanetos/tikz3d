@@ -60,8 +60,8 @@ class c_point : public c_tikz_obj
 
         real x, y, z;
         bool twod;
-    protected:
-    private:
 };
+
+std::ostream& operator<< (std::ostream& stream, const c_point& obj);
 
 #endif // C_POINT_H

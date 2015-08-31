@@ -38,8 +38,12 @@ class c_node : public c_tikz_obj
 
         std::vector<std::vector<c_tikz_obj*>> split(c_polygon *against);
 
+        std::ostream& operator<< (std::ostream& stream);
+
         real x, y, z;
         std::string text;
 };
+
+std::ostream& operator<< (std::ostream& stream, const c_point& obj);
 
 #endif // C_NODE_H

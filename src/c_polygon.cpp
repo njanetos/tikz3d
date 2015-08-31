@@ -63,7 +63,7 @@ c_point c_polygon::normal() {
     real x, y, z;
 
     x = (a.y - c.y)*(b.z - c.z) - (a.z - c.z)*(b.y - c.y);
-    y = (a.x - c.x)*(b.z - c.z) - (a.z - c.z)*(b.x - c.x);
+    y = -1*((a.x - c.x)*(b.z - c.z) - (a.z - c.z)*(b.x - c.x));
     z = (a.x - c.x)*(b.y - c.y) - (a.y - c.y)*(b.x - c.x);
 
     c_point point(x, y, z);
@@ -73,4 +73,8 @@ c_point c_polygon::normal() {
 std::vector<std::vector<c_tikz_obj*>> c_polygon::split(c_polygon *against) {
     std::vector<std::vector<c_tikz_obj*>> emp(0);
     return emp;
+}
+
+std::ostream& operator<< (std::ostream& stream, const c_polygon& obj) {
+    return stream;
 }

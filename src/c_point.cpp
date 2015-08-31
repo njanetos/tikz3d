@@ -64,3 +64,7 @@ std::vector<std::vector<c_tikz_obj*>> c_point::split(c_polygon *against) {
 
     return ret;
 }
+
+std::ostream& operator<< (std::ostream& stream, const c_point& obj) {
+    return stream;
+}

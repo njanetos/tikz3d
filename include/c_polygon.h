@@ -40,8 +40,9 @@ class c_polygon : public c_tikz_obj
         std::vector<std::vector<c_tikz_obj*>> split(c_polygon *against);
 
         c_point a, b, c;
-    protected:
-    private:
+
 };
+
+std::ostream& operator<< (std::ostream& stream, const c_polygon& obj);
 
 #endif // C_POLYGON_H

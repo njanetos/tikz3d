@@ -54,7 +54,7 @@ c_tikz_obj* c_line::clone() {
 
 std::vector<std::vector<c_tikz_obj*>> c_line::split(c_polygon *against) {
 
-    char loc_s, loc_e;
+    int loc_s, loc_e;
 
     loc_s = utils::is_located(sx, sy, sz, against);
     loc_e = utils::is_located(ex, ey, ez, against);
@@ -116,4 +116,8 @@ std::vector<std::vector<c_tikz_obj*>> c_line::split(c_polygon *against) {
     ret[loc_e].push_back(line_end);
 
     return ret;
+}
+
+std::ostream& operator<< (std::ostream& stream, const c_line& obj) {
+    return stream;
 }
