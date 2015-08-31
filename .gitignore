@@ -5,6 +5,7 @@
 *.layout
 *.log
 *.aux
+*.gcno
 
 main.cpp
 /bin
@@ -12,3 +13,4 @@ test.txt
 test3d.txt
 test.tex
 testCross.txt
+tikz3d
