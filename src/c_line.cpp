@@ -77,10 +77,10 @@ std::vector< std::vector<c_tikz_obj*> > c_line::split(c_polygon *against) {
 
     real t;
 
-    t = utils::det4(1, 1, 1, 1,
-                    against->a.x, against->b.x, against->c.x, sx,
-                    against->a.y, against->b.y, against->c.y, sy,
-                    against->a.z, against->b.z, against->c.z, sz);
+    t = -1*utils::det4(1, 1, 1, 1,
+                       against->a.x, against->b.x, against->c.x, sx,
+                       against->a.y, against->b.y, against->c.y, sy,
+                       against->a.z, against->b.z, against->c.z, sz);
 
     t = t / utils::det4(1, 1, 1, 0,
                         against->a.x, against->b.x, against->c.x, ex - sx,
@@ -89,9 +89,9 @@ std::vector< std::vector<c_tikz_obj*> > c_line::split(c_polygon *against) {
 
     real int_x, int_y, int_z;
 
-    int_x = t*sx + (1-t)*ex;
-    int_y = t*sy + (1-t)*ey;
-    int_z = t*sz + (1-t)*ez;
+    int_x = (1-t)*sx + t*ex;
+    int_y = (1-t)*sy + t*ey;
+    int_z = (1-t)*sz + t*ez;
 
     c_line *line_start = new c_line();
     c_line *line_end = new c_line();
@@ -112,8 +112,8 @@ std::vector< std::vector<c_tikz_obj*> > c_line::split(c_polygon *against) {
 
     // Add the splitted guys to the correct position in the vector.
     // Add the splitted guys to the correct position in the vector.
-    ret[loc_s].push_back(line_start);
-    ret[loc_e].push_back(line_end);
+    ret[loc_e].push_back(line_start);
+    ret[loc_s].push_back(line_end);
 
     return ret;
 }
