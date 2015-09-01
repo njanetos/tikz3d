@@ -44,9 +44,9 @@ c_tikz_obj* c_node::clone() {
 
 }
 
-std::vector<std::vector<c_tikz_obj*>> c_node::split(c_polygon *against) {
+std::vector< std::vector<c_tikz_obj*> > c_node::split(c_polygon *against) {
 
-    std::vector<std::vector<c_tikz_obj*>> ret(3);
+    std::vector< std::vector<c_tikz_obj*> > ret(3);
 
     char loc = utils::is_located(x, y, z, against);
 

@@ -28,7 +28,7 @@ void c_scene_manager::render_to_file(std::string filename, c_camera *cam) {
     }
 
     std::ofstream sstm;
-    sstm.open(filename);
+    sstm.open(filename.c_str());
 
     sstm << "\\begin{tikzpicture}\n";
 
@@ -52,7 +52,7 @@ void c_scene_manager::render_to_file(std::string filename, c_camera *cam) {
 void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_camera *eye2) {
 
     std::ofstream sstm;
-    sstm.open(filename);
+    sstm.open(filename.c_str());
 
     sstm << "\\begin{tikzpicture}\n";
 
@@ -107,7 +107,7 @@ void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_
 void c_scene_manager::render_cross_to_file(std::string filename, c_camera *eye_1, c_camera *eye_2) {
 
     std::ofstream sstm;
-    sstm.open(filename);
+    sstm.open(filename.c_str());
 
     sstm << "\\begin{tikzpicture}\n";
 

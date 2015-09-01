@@ -12,7 +12,7 @@ TEST_CASE("Splitting") {
 
     c_polygon polygon(1, 0, 0, 0, 1, 0, 0, 0, 1);
 
-    std::vector<std::vector<c_tikz_obj*>> splitted = line1.split(&polygon);
+    std::vector< std::vector<c_tikz_obj*> > splitted = line1.split(&polygon);
 
     REQUIRE( splitted.size() == 3 );
     REQUIRE( splitted[0].size() == 1 );

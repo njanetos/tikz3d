@@ -52,14 +52,14 @@ c_tikz_obj* c_line::clone() {
     return line;
 }
 
-std::vector<std::vector<c_tikz_obj*>> c_line::split(c_polygon *against) {
+std::vector< std::vector<c_tikz_obj*> > c_line::split(c_polygon *against) {
 
     int loc_s, loc_e;
 
     loc_s = utils::is_located(sx, sy, sz, against);
     loc_e = utils::is_located(ex, ey, ez, against);
 
-    std::vector<std::vector<c_tikz_obj*>> ret(3);
+    std::vector< std::vector<c_tikz_obj*> > ret(3);
 
     if (loc_s == loc_e) {
         // Either entirely above, entirely behind, or entirely contained within.

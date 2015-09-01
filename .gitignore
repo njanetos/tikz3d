@@ -6,6 +6,7 @@
 *.log
 *.aux
 *.gcno
+*.gcda
 
 main.cpp
 /bin

@@ -5,7 +5,7 @@ LIB 				= lib
 
 CLEANEXTS   = o a gcno
 CC					= g++
-CFLAGS			= -Wall -fexceptions -g -I$(INC) -I/usr/include -fprofile-arcs -ftest-coverage -std=c++11
+CFLAGS			= -Wall -fexceptions -g -I$(INC) -I/usr/include -fprofile-arcs -ftest-coverage
 LIBS				= -L$(LIB) -lgcov
 
 _DEPS = utils.h c_tree_node.h c_tikz_obj.h c_scene_manager.h c_polygon.h c_point.h common.h c_node.h c_line.h c_camera.h catch.hpp

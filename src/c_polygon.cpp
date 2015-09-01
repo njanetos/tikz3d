@@ -70,8 +70,8 @@ c_point c_polygon::normal() {
     return point;
 }
 
-std::vector<std::vector<c_tikz_obj*>> c_polygon::split(c_polygon *against) {
-    std::vector<std::vector<c_tikz_obj*>> emp(0);
+std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
+    std::vector< std::vector<c_tikz_obj*> > emp(0);
     return emp;
 }
 

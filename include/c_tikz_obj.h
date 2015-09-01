@@ -45,7 +45,7 @@ class c_tikz_obj {
          */
         virtual c_tikz_obj* project(c_camera *cam) =0;
 
-        virtual std::vector<std::vector<c_tikz_obj*>> split(c_polygon *against) =0;
+        virtual std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against) =0;
 
         /**
          *  Writes this object to tikz code.
