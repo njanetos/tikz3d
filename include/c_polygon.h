@@ -29,6 +29,8 @@ class c_polygon : public c_tikz_obj
          */
         c_polygon(real ax, real ay, real az, real bx, real by, real bz, real cx, real cy, real cz);
 
+        c_polygon(c_point a, c_point b, c_point c);
+
         virtual ~c_polygon();
 
         std::string write();

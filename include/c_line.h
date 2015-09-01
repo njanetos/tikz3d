@@ -35,13 +35,13 @@ class c_line : public c_tikz_obj
         c_tikz_obj* project(c_camera *cam);
         c_tikz_obj* clone();
 
-        std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
+        void set_points(c_point s, c_point e);
 
-        std::ostream& operator<< (std::ostream& stream);
+        std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
 
         real sx, sy, sz, ex, ey, ez;
 };
 
-std::ostream& operator<< (std::ostream& stream, const c_point& obj);
+std::ostream& operator<< (std::ostream& stream, const c_line& obj);
 
 #endif // C_LINE_H

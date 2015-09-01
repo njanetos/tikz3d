@@ -1,6 +1,7 @@
 #include "c_polygon.h"
 
 #include "c_camera.h"
+#include "c_line.h"
 
 c_polygon::c_polygon() {
     //ctor
@@ -25,6 +26,12 @@ c_polygon::c_polygon(real ax,
     c.x = cx;
     c.y = cy;
     c.z = cz;
+}
+
+c_polygon::c_polygon(c_point a, c_point b, c_point c) {
+    this->a = a;
+    this->b = b;
+    this->c = c;
 }
 
 c_polygon::~c_polygon() {
@@ -71,8 +78,164 @@ c_point c_polygon::normal() {
 }
 
 std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
-    std::vector< std::vector<c_tikz_obj*> > emp(0);
-    return emp;
+
+    std::vector< std::vector<c_tikz_obj*> > ret(3);
+
+    // Check each point individually
+
+    char loc_a, loc_b, loc_c;
+
+    loc_a = utils::is_located(&a, against);
+    loc_b = utils::is_located(&b, against);
+    loc_c = utils::is_located(&c, against);
+
+    std::cout << (int) loc_a << ", " << (int) loc_b << ", " << (int) loc_c << "\n";
+
+    // Check if we're above or below or inside
+    if (loc_a == loc_b && loc_b == loc_c) {
+        ret[loc_a].push_back(clone());
+        return ret;
+    }
+
+    // Check if point a is barely touching
+    if (loc_a == 1 && loc_b == loc_c) {
+        ret[loc_b].push_back(clone());
+        return ret;
+    }
+
+    // Check if point b is barely touching
+    if (loc_a == 1 && loc_b == loc_c) {
+        ret[loc_c].push_back(clone());
+        return ret;
+    }
+
+    // Check if point c is barely touching
+    if (loc_a == 1 && loc_b == loc_c) {
+        ret[loc_a].push_back(clone());
+        return ret;
+    }
+
+    // Check if a and b are barely touching
+    if (loc_a == 1 && loc_b == 1) {
+        ret[loc_c].push_back(clone());
+        return ret;
+    }
+
+    // Check if a and c are barely touching
+    if (loc_a == 1 && loc_c == 1) {
+        ret[loc_b].push_back(clone());
+        return ret;
+    }
+
+    // Check if b and c are barely touching
+    if (loc_b == 1 && loc_c == 1) {
+        ret[loc_a].push_back(clone());
+        return ret;
+    }
+
+    // Remaining cases: Two points above, one point below
+    c_line line1, line2;
+    bool two_above;
+
+    if (loc_a == 0 && loc_b == 2 && loc_c == 2) {
+        // Split ab and ac against the polygon
+        line1.set_points(a, b);
+        line2.set_points(a, c);
+        two_above = true;
+    }
+
+    if (loc_a == 2 && loc_b == 0 && loc_c == 2) {
+        // Split ba and bc against the polygon
+        line1.set_points(b, a);
+        line2.set_points(b, c);
+        two_above = true;
+    }
+
+    if (loc_a == 2 && loc_b == 2 && loc_c == 0) {
+        // Split ca and cb against the polygon
+        line1.set_points(c, a);
+        line2.set_points(c, b);
+        two_above = true;
+    }
+
+    if (loc_a == 2 && loc_b == 0 && loc_c == 0) {
+        // Split ba and ca against the polygon
+        line1.set_points(b, a);
+        line2.set_points(c, a);
+        two_above = false;
+    }
+
+    if (loc_a == 0 && loc_b == 2 && loc_c == 0) {
+        // Split ab and cb against the polygon
+        line1.set_points(a, b);
+        line2.set_points(c, b);
+        two_above = false;
+    }
+
+    if (loc_a == 0 && loc_b == 0 && loc_c == 2) {
+        // Split ac and bc against the polygon
+        line1.set_points(a, c);
+        line2.set_points(b, c);
+        two_above = false;
+    }
+
+    std::cout << a << b << c;
+
+    std::cout << line1;
+    std::cout << line2;
+
+    std::vector< std::vector<c_tikz_obj*> > line1_split(3);
+    std::vector< std::vector<c_tikz_obj*> > line2_split(3);
+
+    line1_split = line1.split(against);
+    line2_split = line2.split(against);
+
+    std::cout << line1_split[0].size();
+    std::cout << line1_split[2].size();
+
+    std::cout << *((c_line*) line1_split[0][0]);
+    std::cout << *((c_line*) line1_split[0][2]);
+
+    int loc;
+    if (two_above) {
+        loc = 2;
+    } else {
+        loc = 0;
+    }
+
+    c_point point_top(((c_line*)line1_split[2-loc][0])->ex,
+                      ((c_line*)line1_split[2-loc][0])->ey,
+                      ((c_line*)line1_split[2-loc][0])->ez);
+
+    return ret;
+
+    c_point point_left(((c_line*)line1_split[2-loc][0])->sx,
+                       ((c_line*)line1_split[2-loc][0])->sy,
+                       ((c_line*)line1_split[2-loc][0])->sz);
+
+    c_point point_right(((c_line*)line2_split[2-loc][0])->sx,
+                        ((c_line*)line2_split[2-loc][0])->sy,
+                        ((c_line*)line2_split[2-loc][0])->sz);
+
+    c_point bottom_left(((c_line*)line1_split[loc][0])->sx,
+                        ((c_line*)line1_split[loc][0])->sy,
+                        ((c_line*)line1_split[loc][0])->sz);
+
+    c_point bottom_right(((c_line*)line2_split[loc][0])->sx,
+                         ((c_line*)line2_split[loc][0])->sy,
+                         ((c_line*)line2_split[loc][0])->sz);
+
+
+
+    c_polygon * polygon1 = new c_polygon(point_top, point_left, point_right);
+    c_polygon * polygon2 = new c_polygon(bottom_left, point_left, point_right);
+    c_polygon * polygon3 = new c_polygon(bottom_right, bottom_left, point_right);
+
+    ret[2-loc].push_back(polygon1);
+    ret[loc].push_back(polygon2);
+    ret[loc].push_back(polygon3);
+
+    return ret;
 }
 
 std::ostream& operator<< (std::ostream& stream, const c_polygon& obj) {

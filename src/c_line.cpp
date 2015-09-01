@@ -118,6 +118,16 @@ std::vector< std::vector<c_tikz_obj*> > c_line::split(c_polygon *against) {
     return ret;
 }
 
+void c_line::set_points(c_point s, c_point e) {
+    sx = s.x;
+    sy = s.y;
+    sz = s.z;
+    ex = e.x;
+    ey = e.y;
+    ez = e.z;
+}
+
 std::ostream& operator<< (std::ostream& stream, const c_line& obj) {
+    stream << "c_line: (" << obj.sx << ", " << obj.sy << ", " << obj.sz << ") -- (" << obj.ex << ", " << obj.ey << ", " << obj.ez << ").\n";
     return stream;
 }

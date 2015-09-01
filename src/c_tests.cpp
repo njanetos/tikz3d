@@ -40,6 +40,16 @@ TEST_CASE("Splitting a line") {
 
 TEST_CASE("Splitting a polygon") {
 
+    c_polygon polygon1(0, 0, 0, 0, 1, 0, 1, 0, 0);
+    c_polygon polygon2(0, 0, -1, 0, 1, 0.2, 1, 0, 0.2);
+
+    std::vector< std::vector<c_tikz_obj*> > splitted = polygon2.split(&polygon1);
+
+    REQUIRE( splitted.size() == 3 );
+    REQUIRE( splitted[0].size() == 1 );
+    REQUIRE( splitted[1].size() == 0 );
+    REQUIRE( splitted[2].size() == 2 );
+
 }
 
 TEST_CASE("Render to file") {
