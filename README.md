@@ -1,5 +1,8 @@
 # tikz3D
 
+[![Build Status](https://travis-ci.org/njanetos/tikz3d.svg?branch=master)](https://travis-ci.org/njanetos/tikz3d)
+[![Coverage Status](https://coveralls.io/repos/njanetos/tikz3d/badge.svg?branch=master&service=github)](https://coveralls.io/github/njanetos/tikz3d?branch=master)
+
 build status goes here
 
 Library for generating nice 3D pictures in tikz that are readable with 3D glasses.
