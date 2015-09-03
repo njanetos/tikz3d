@@ -13,3 +13,12 @@ void c_tikz_obj::add_params(std::vector<std::string> params) {
         this->params.push_back(params[i]);
     }
 }
+
+std::ostream& c_tikz_obj::print(std::ostream& stream) {
+    stream << "Abstract type, cannot print.\n";
+    return stream;
+}
+
+std::ostream& operator<< (std::ostream& stream, const c_tikz_obj& obj) {
+    return obj.print(stream);
+}

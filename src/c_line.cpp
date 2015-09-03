@@ -138,6 +138,11 @@ c_polygon c_line::get_plane() {
     return polygon;
 }
 
+std::ostream& c_line::print(std::ostream& stream) {
+    stream << "Abstract type, cannot print.\n";
+    return stream;
+}
+
 std::ostream& operator<< (std::ostream& stream, const c_line& obj) {
     stream << "c_line: (" << obj.sx << ", " << obj.sy << ", " << obj.sz << ") -- (" << obj.ex << ", " << obj.ey << ", " << obj.ez << ").\n";
     return stream;

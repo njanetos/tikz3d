@@ -6,6 +6,7 @@
 
 #include "c_camera.h"
 #include "c_tikz_obj.h"
+#include "c_tree_node.h"
 
 class c_tikz_obj;
 
@@ -50,12 +51,18 @@ class c_scene_manager {
 
         void render_cross_to_file(std::string filename, c_camera *eye_1, c_camera *eye_2);
 
+        void render_bsp();
+
     private:
 
         /**
          *  Vector of objects in the scene. Deallocated when destructed.
          */
         std::vector<c_tikz_obj*> scene_objects;
+        std::vector<c_tikz_obj*> bsp_objects;
+
+        c_tree_node *root;
+        bool bsp_rendered;
 
 };
 

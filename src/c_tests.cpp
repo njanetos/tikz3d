@@ -137,3 +137,17 @@ TEST_CASE("Render to file") {
     scene_manager.render_cross_to_file("testCross.txt", &eye_1, &eye_2);
 
 }
+
+TEST_CASE("BSP creation") {
+    c_polygon polygon1(0, 0, 0, 0, 1, 0, 1, 0, 0);
+    c_polygon polygon2(0, 0, 1, 2, 2, 1, 2, 2, -1);
+
+    c_scene_manager scene_manager;
+    scene_manager.add_to_scene(&polygon1);
+    scene_manager.add_to_scene(&polygon2);
+
+    scene_manager.render_bsp();
+
+
+
+}
