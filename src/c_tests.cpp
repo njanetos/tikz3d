@@ -9,6 +9,13 @@
 #include "c_scene_manager.h"
 #include "c_node.h"
 
+TEST_CASE("Polygon normals") {
+    c_polygon polygon(0, 0, 0, 1, 0, 0, 0, 0, 1);
+    c_point point = polygon.normal();
+
+    //std::cout << point;
+}
+
 TEST_CASE("Splitting a line") {
 
     c_line line1(0, 0, 0, 1, 1, 1);
@@ -40,15 +47,15 @@ TEST_CASE("Splitting a line") {
 
 TEST_CASE("Splitting a polygon") {
 
-    c_polygon polygon1(0, 0, 0, 0, 1, 0, 1, 0, 0);
-    c_polygon polygon2(0, 0, -1, 0, 1, 0.2, 1, 0, 0.2);
+    c_polygon polygon1(0, 0, 0, 1, 0, 0, 0, 1, 0);
+    c_polygon polygon2(0, 0, -1, 1, 0, 1, 0, 0, 1);
 
-    //std::vector< std::vector<c_tikz_obj*> > splitted = polygon2.split(&polygon1);
+    std::vector< std::vector<c_tikz_obj*> > splitted = polygon2.split(&polygon1);
 
-    //REQUIRE( splitted.size() == 3 );
-    //REQUIRE( splitted[0].size() == 1 );
-    //REQUIRE( splitted[1].size() == 0 );
-    //REQUIRE( splitted[2].size() == 2 );
+    REQUIRE( splitted.size() == 3 );
+    REQUIRE( splitted[0].size() == 2 );
+    REQUIRE( splitted[1].size() == 0 );
+    REQUIRE( splitted[2].size() == 1 );
 
 }
 

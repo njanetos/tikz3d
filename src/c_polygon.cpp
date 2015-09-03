@@ -89,8 +89,6 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
     loc_b = utils::is_located(&b, against);
     loc_c = utils::is_located(&c, against);
 
-    std::cout << (int) loc_a << ", " << (int) loc_b << ", " << (int) loc_c << "\n";
-
     // Check if we're above or below or inside
     if (loc_a == loc_b && loc_b == loc_c) {
         ret[loc_a].push_back(clone());
@@ -179,22 +177,11 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
         two_above = false;
     }
 
-    std::cout << a << b << c;
-
-    std::cout << line1;
-    std::cout << line2;
-
     std::vector< std::vector<c_tikz_obj*> > line1_split(3);
     std::vector< std::vector<c_tikz_obj*> > line2_split(3);
 
     line1_split = line1.split(against);
     line2_split = line2.split(against);
-
-    std::cout << line1_split[0].size();
-    std::cout << line1_split[2].size();
-
-    std::cout << *((c_line*) line1_split[0][0]);
-    std::cout << *((c_line*) line1_split[0][2]);
 
     int loc;
     if (two_above) {
@@ -203,27 +190,25 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
         loc = 0;
     }
 
-    c_point point_top(((c_line*)line1_split[2-loc][0])->ex,
-                      ((c_line*)line1_split[2-loc][0])->ey,
-                      ((c_line*)line1_split[2-loc][0])->ez);
+    c_point point_top(((c_line*)line1_split[loc][0])->ex,
+                      ((c_line*)line1_split[loc][0])->ey,
+                      ((c_line*)line1_split[loc][0])->ez);
 
-    return ret;
+    c_point point_left(((c_line*)line2_split[2-loc][0])->ex,
+                       ((c_line*)line2_split[2-loc][0])->ey,
+                       ((c_line*)line2_split[2-loc][0])->ez);
 
-    c_point point_left(((c_line*)line1_split[2-loc][0])->sx,
-                       ((c_line*)line1_split[2-loc][0])->sy,
-                       ((c_line*)line1_split[2-loc][0])->sz);
+    c_point point_right(((c_line*)line1_split[2-loc][0])->ex,
+                        ((c_line*)line1_split[2-loc][0])->ey,
+                        ((c_line*)line1_split[2-loc][0])->ez);
 
-    c_point point_right(((c_line*)line2_split[2-loc][0])->sx,
+    c_point bottom_left(((c_line*)line2_split[2-loc][0])->sx,
                         ((c_line*)line2_split[2-loc][0])->sy,
                         ((c_line*)line2_split[2-loc][0])->sz);
 
-    c_point bottom_left(((c_line*)line1_split[loc][0])->sx,
-                        ((c_line*)line1_split[loc][0])->sy,
-                        ((c_line*)line1_split[loc][0])->sz);
-
-    c_point bottom_right(((c_line*)line2_split[loc][0])->sx,
-                         ((c_line*)line2_split[loc][0])->sy,
-                         ((c_line*)line2_split[loc][0])->sz);
+    c_point bottom_right(((c_line*)line1_split[2-loc][0])->sx,
+                         ((c_line*)line1_split[2-loc][0])->sy,
+                         ((c_line*)line1_split[2-loc][0])->sz);
 
 
 
@@ -239,5 +224,6 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
 }
 
 std::ostream& operator<< (std::ostream& stream, const c_polygon& obj) {
+    stream << "c_polygon: (" << obj.a.x << ", " << obj.a.y << ", " << obj.a.z << ") -- (" << obj.b.x << ", " << obj.b.y << ", " << obj.b.z << ") -- (" << obj.c.x << ", " << obj.c.y << ", " << obj.c.z << ").\n";
     return stream;
 }
