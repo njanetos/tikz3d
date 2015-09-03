@@ -127,6 +127,17 @@ void c_line::set_points(c_point s, c_point e) {
     ez = e.z;
 }
 
+bool c_line::can_split_against() {
+    return true;
+}
+
+c_polygon c_line::get_plane() {
+    c_point point1(sx, sy, sz);
+    c_point point2(ex, ey, ez);
+    c_polygon polygon(sx, sy, sz, ex, ey, ez, 0, 0, 0);
+    return polygon;
+}
+
 std::ostream& operator<< (std::ostream& stream, const c_line& obj) {
     stream << "c_line: (" << obj.sx << ", " << obj.sy << ", " << obj.sz << ") -- (" << obj.ex << ", " << obj.ey << ", " << obj.ez << ").\n";
     return stream;

@@ -39,6 +39,9 @@ class c_line : public c_tikz_obj
 
         std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
 
+        bool can_split_against();
+        c_polygon get_plane();
+
         real sx, sy, sz, ex, ey, ez;
 };
 

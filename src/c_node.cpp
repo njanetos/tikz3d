@@ -1,6 +1,7 @@
 #include "c_node.h"
 
 #include "c_camera.h"
+#include "c_polygon.h"
 
 c_node::c_node() {
     //ctor
@@ -53,6 +54,15 @@ std::vector< std::vector<c_tikz_obj*> > c_node::split(c_polygon *against) {
     ret[loc].push_back(clone());
 
     return ret;
+}
+
+bool c_node::can_split_against() {
+    return false;
+}
+
+c_polygon c_node::get_plane() {
+    c_polygon polygon;
+    return polygon;
 }
 
 std::ostream& operator<< (std::ostream& stream, const c_node& obj) {

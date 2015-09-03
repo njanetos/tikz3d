@@ -223,6 +223,15 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
     return ret;
 }
 
+bool c_polygon::can_split_against() {
+    return true;
+}
+
+c_polygon c_polygon::get_plane() {
+    c_polygon polygon(a, b, c);
+    return polygon;
+}
+
 std::ostream& operator<< (std::ostream& stream, const c_polygon& obj) {
     stream << "c_polygon: (" << obj.a.x << ", " << obj.a.y << ", " << obj.a.z << ") -- (" << obj.b.x << ", " << obj.b.y << ", " << obj.b.z << ") -- (" << obj.c.x << ", " << obj.c.y << ", " << obj.c.z << ").\n";
     return stream;

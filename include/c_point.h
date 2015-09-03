@@ -44,6 +44,9 @@ class c_point : public c_tikz_obj
 
         std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
 
+        bool can_split_against();
+        c_polygon get_plane();
+
         c_point operator+(const c_point& c) {
             c_point point(this->x + c.x, this->y + c.y, this->z + c.z);
             return point;

@@ -41,6 +41,9 @@ class c_polygon : public c_tikz_obj
         c_tikz_obj* clone();
         std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
 
+        bool can_split_against();
+        c_polygon get_plane();
+
         c_point a, b, c;
 
 };

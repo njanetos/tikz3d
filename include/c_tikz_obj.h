@@ -59,6 +59,9 @@ class c_tikz_obj {
          */
         std::vector<std::string> params;
 
+        virtual bool can_split_against() =0;
+        virtual c_polygon get_plane() =0;
+
 };
 
 #endif // C_TIKZ_OBJ_H

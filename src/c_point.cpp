@@ -1,6 +1,7 @@
 #include "c_point.h"
 
 #include "c_camera.h"
+#include "c_polygon.h"
 
 c_point::c_point() {
     this->x = 0;
@@ -63,6 +64,15 @@ std::vector< std::vector<c_tikz_obj*> > c_point::split(c_polygon *against) {
     ret[loc].push_back(clone());
 
     return ret;
+}
+
+bool c_point::can_split_against() {
+    return false;
+}
+
+c_polygon c_point::get_plane() {
+    c_polygon polygon;
+    return polygon;
 }
 
 std::ostream& operator<< (std::ostream& stream, const c_point& obj) {
