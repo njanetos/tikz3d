@@ -62,13 +62,88 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
 }
 
 c_tree_node::~c_tree_node() {
-    //delete left;
-    //delete right;
+    delete left;
+    delete right;
 
     // Delete my own objects
     for (size_t i = 0; i < my_objs.size(); ++i) {
-        //delete my_objs[i];
+        delete my_objs[i];
     }
+
+    for (size_t i = 0; i < proj_objs.size(); ++i) {
+        delete proj_objs[i];
+    }
+}
+
+std::ostream& c_tree_node::render(std::ostream& stream, c_camera& cam) const {
+
+    // Are we a leaf node?
+    if (!my_objs[0]->can_split_against()) {
+        // Render everything in me
+        for (size_t i = 0; i < proj_objs.size(); ++i) {
+            stream << proj_objs[i]->write();
+        }
+    } else {
+        // Otherwise, we need to do more work
+        c_polygon plane = my_objs[0]->get_plane();
+        char loc = utils::is_located(cam.pos_x, cam.pos_y, cam.pos_z, &plane);
+
+        // If we're in front render everything in the left node first
+        if (loc == 2) {
+            if (left != nullptr) {
+                left->render(stream, cam);
+            }
+            for (size_t i = 0; i < proj_objs.size(); ++i) {
+                stream << proj_objs[i]->write();
+            }
+            if (right != nullptr) {
+                right->render(stream, cam);
+            }
+        } else if (loc == 0) {
+            // Otherwise, render everything in the right node first
+            if (right != nullptr) {
+                right->render(stream, cam);
+            }
+            for (size_t i = 0; i < proj_objs.size(); ++i) {
+                stream << proj_objs[i]->write();
+            }
+            if (left != nullptr) {
+                left->render(stream, cam);
+            }
+        } else {
+            // Otherwise, don't render anything at my node!
+            if (right != nullptr) {
+                right->render(stream, cam);
+            }
+            if (left != nullptr) {
+                left->render(stream, cam);
+            }
+        }
+    }
+
+    return stream;
+}
+
+void c_tree_node::project(c_camera& cam) {
+
+    // Delete current projection
+    for (size_t i = 0; i < proj_objs.size(); ++i) {
+        delete proj_objs[i];
+    }
+
+    // New projection
+    for (size_t i = 0; i < my_objs.size(); ++i) {
+        proj_objs.push_back(my_objs[i]->project(&cam));
+    }
+
+    // Project mah children
+    if (left != nullptr) {
+        left->project(cam);
+    }
+    if (right != nullptr) {
+        right->project(cam);
+    }
+
 }
 
 std::ostream& operator<< (std::ostream& stream, const c_tree_node& obj) {

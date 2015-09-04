@@ -159,12 +159,32 @@ void c_scene_manager::render_cross_to_file(std::string filename, c_camera *eye_1
 
 }
 
-void c_scene_manager::render_bsp() {
+void c_scene_manager::compile_bsp() {
 
     if (root != nullptr) {
         delete root;
     }
 
     root = new c_tree_node(scene_objects, 0);
+
+}
+
+void c_scene_manager::render_bsp(std::string filename, c_camera& cam) {
+
+    std::ofstream sstm;
+    sstm.open(filename.c_str());
+
+    sstm << "\\begin{tikzpicture}\n";
+
+    sstm << "  \\draw (0, 0)--(0,0.01); \n";
+
+    if (root != nullptr) {
+        root->project(cam);
+        root->render(sstm, cam);
+    }
+
+    sstm << "\\end{tikzpicture}\n";
+
+    sstm.close();
 
 }

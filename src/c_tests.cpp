@@ -125,28 +125,37 @@ TEST_CASE("Render to file") {
     scene_manager.add_to_scene(&node);
 
     // Render the scene to file as a regular (no 3d glasses) projection.
-    scene_manager.render_to_file("test.txt", &camera);
+    //scene_manager.render_to_file("test.txt", &camera);
 
     c_camera eye_1(62, 56, 48, -3.14/4, 0, -3.14/4);
     c_camera eye_2(63, 55, 48, -3.14/4, 0, -3.14/4);
 
     // Render it to file as a 3D glasses projection.
-    scene_manager.render_3d_to_file("test3d.txt", &eye_1, &eye_2);
+    //scene_manager.render_3d_to_file("test3d.txt", &eye_1, &eye_2);
 
     // Render a 'cross-eyed' projection.
-    scene_manager.render_cross_to_file("testCross.txt", &eye_1, &eye_2);
+    //scene_manager.render_cross_to_file("testCross.txt", &eye_1, &eye_2);
 
 }
 
 TEST_CASE("BSP creation") {
-    c_polygon polygon1(0, 0, 0, 0, 1, 0, 1, 0, 0);
-    c_polygon polygon2(0, 0, 1, 2, 2, 1, 2, 2, -1);
+    c_polygon polygon1(0, 0, 0, 0, 6, 0, 6, 0, 0);
+    c_polygon polygon2(0, 0, 6, 0, 0, -6, 6, 12, -6);
+
+    polygon1.add_param("color=red");
+    polygon2.add_param("color=blue");
 
     c_scene_manager scene_manager;
     scene_manager.add_to_scene(&polygon1);
     scene_manager.add_to_scene(&polygon2);
 
-    scene_manager.render_bsp();
+    c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
+
+    //scene_manager.render_to_file("testBsp.txt", &camera);
+
+    scene_manager.compile_bsp();
+
+    scene_manager.render_bsp("testBsp.txt", camera);
 
 
 

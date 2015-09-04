@@ -2,8 +2,10 @@
 #define C_TREE_NODE_H
 
 #include "common.h"
+#include "utils.h"
 
 class c_tikz_obj;
+class c_camera;
 
 class c_tree_node
 {
@@ -15,6 +17,11 @@ class c_tree_node
         c_tree_node *right;
 
         std::vector<c_tikz_obj*> my_objs;
+        std::vector<c_tikz_obj*> proj_objs;
+
+        std::ostream& render(std::ostream& stream, c_camera& cam) const;
+
+        void project(c_camera& cam);
 
         size_t depth;
     protected:

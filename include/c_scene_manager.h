@@ -51,7 +51,9 @@ class c_scene_manager {
 
         void render_cross_to_file(std::string filename, c_camera *eye_1, c_camera *eye_2);
 
-        void render_bsp();
+        void compile_bsp();
+
+        void render_bsp(std::string filename, c_camera& cam);
 
     private:
 

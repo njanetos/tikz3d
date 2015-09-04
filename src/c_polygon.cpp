@@ -55,6 +55,8 @@ std::string c_polygon::write() {
     }
     sstm << "] (" << a.x << ", " << a.y << ") -- (" << b.x << ", " << b.y << ") -- (" << c.x << ", " << c.y << ") -- (" << a.x << ", " << a.y << ");\n";
 
+    std::cout << "I'm being written! " << *this;
+
     return sstm.str();
 }
 
@@ -210,11 +212,21 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
                          ((c_line*)line1_split[2-loc][0])->sy,
                          ((c_line*)line1_split[2-loc][0])->sz);
 
+    c_polygon * polygon1 = (c_polygon*) this->clone();
+    c_polygon * polygon2 = (c_polygon*) this->clone();
+    c_polygon * polygon3 = (c_polygon*) this->clone();
 
+    polygon1->a = point_top;
+    polygon1->b = point_left;
+    polygon1->c = point_right;
 
-    c_polygon * polygon1 = new c_polygon(point_top, point_left, point_right);
-    c_polygon * polygon2 = new c_polygon(bottom_left, point_left, point_right);
-    c_polygon * polygon3 = new c_polygon(bottom_right, bottom_left, point_right);
+    polygon2->a = bottom_left;
+    polygon2->b = point_left;
+    polygon2->c = point_right;
+
+    polygon3->a = bottom_right;
+    polygon3->b = bottom_left;
+    polygon3->c = point_right;
 
     ret[2-loc].push_back(polygon1);
     ret[loc].push_back(polygon2);
