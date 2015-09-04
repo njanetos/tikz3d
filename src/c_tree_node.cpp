@@ -5,6 +5,8 @@
 
 c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
 
+    std::cout << "Process: " << process.size() << ", " << depth << "\n";
+
     left = nullptr;
     right = nullptr;
 
@@ -23,7 +25,8 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
 
     // Are there no splittable objects remaining?
     // Keep them all
-    if (index == -1) {
+    if (index == -1 || process.size() == 1) {
+        std::cout << "Imma leaf \n";
         for (size_t i = 0; i < process.size(); ++i) {
             my_objs.push_back(process[i]);
         }
@@ -35,18 +38,26 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
         // Get my plane
         c_polygon plane = my_objs[0]->get_plane();
 
+        std::vector<c_tikz_obj*> to_left;
+        std::vector<c_tikz_obj*> to_right;
+
         // Split the rest against me
         for (size_t i = 0; i < process.size(); ++i) {
             if ((int) i != index) {
+                std::cout << "Splitting\n";
+                std::cout << *process[i];
+                std::cout << "against\n";
+                std::cout << plane;
                 std::vector< std::vector<c_tikz_obj*> > splitted = process[i]->split(&plane);
 
-                if (splitted[0].size() > 0) {
-                    // Send everything behind me to the left node
-                    left = new c_tree_node(splitted[0], depth+1);
+                std::cout << splitted[0].size() << ", " << splitted[2].size() << ", " << splitted[1].size() << "\n";
+
+                for (size_t j = 0; j < splitted[0].size(); ++j) {
+                    to_left.push_back(splitted[0][j]);
                 }
-                if (splitted[2].size() > 0) {
-                    // Send everything in front of me to the right node
-                    right = new c_tree_node(splitted[2], depth+1);
+
+                for (size_t j = 0; j < splitted[2].size(); ++j) {
+                    to_right.push_back(splitted[2][j]);
                 }
 
                 // Add everything at my position to my objects
@@ -55,23 +66,41 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
                 }
 
                 // Delete the splitted object
-                delete process[i];
+                //delete process[i];
             }
+        }
+
+        // Send everything we need to to the left and right nodes
+        if (to_right.size() > 0) {
+            right = new c_tree_node(to_right, depth+1);
+        }
+
+        if (to_left.size() > 0) {
+            left = new c_tree_node(to_left, depth+1);
+        }
+
+        // Delete them, since they'll be cloned.
+        for (size_t i = 0; i < to_left.size(); ++i) {
+            //delete to_left[i];
+        }
+
+        for (size_t i = 0; i < to_right.size(); ++i) {
+            //delete to_right[i];
         }
     }
 }
 
 c_tree_node::~c_tree_node() {
-    delete left;
-    delete right;
+    //delete left;
+    //delete right;
 
     // Delete my own objects
     for (size_t i = 0; i < my_objs.size(); ++i) {
-        delete my_objs[i];
+        //delete my_objs[i];
     }
 
     for (size_t i = 0; i < proj_objs.size(); ++i) {
-        delete proj_objs[i];
+        //delete proj_objs[i];
     }
 }
 

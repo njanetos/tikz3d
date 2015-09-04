@@ -55,8 +55,6 @@ std::string c_polygon::write() {
     }
     sstm << "] (" << a.x << ", " << a.y << ") -- (" << b.x << ", " << b.y << ") -- (" << c.x << ", " << c.y << ") -- (" << a.x << ", " << a.y << ");\n";
 
-    std::cout << "I'm being written! " << *this;
-
     return sstm.str();
 }
 
@@ -87,9 +85,12 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
 
     char loc_a, loc_b, loc_c;
 
+
     loc_a = utils::is_located(&a, against);
     loc_b = utils::is_located(&b, against);
     loc_c = utils::is_located(&c, against);
+
+    std::cout << (int) loc_a << ", " << (int) loc_b << ", " << (int) loc_c << "\n";
 
     // Check if we're above or below or inside
     if (loc_a == loc_b && loc_b == loc_c) {
@@ -104,13 +105,13 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
     }
 
     // Check if point b is barely touching
-    if (loc_a == 1 && loc_b == loc_c) {
+    if (loc_b == 1 && loc_a == loc_c) {
         ret[loc_c].push_back(clone());
         return ret;
     }
 
     // Check if point c is barely touching
-    if (loc_a == 1 && loc_b == loc_c) {
+    if (loc_c == 1 && loc_b == loc_c) {
         ret[loc_a].push_back(clone());
         return ret;
     }
@@ -132,6 +133,44 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
         ret[loc_a].push_back(clone());
         return ret;
     }
+
+    // Check if 1 point touching, one above, one below
+    if (loc_a == 1 || loc_b == 1 || loc_c == 1) {
+        c_line line;
+        if (loc_a == 1) {
+            line.set_points(b, c);
+        }
+        if (loc_b == 1) {
+            line.set_points(a, c);
+        }
+        if (loc_c == 1) {
+            line.set_points(a, b);
+        }
+
+        std::vector< std::vector<c_tikz_obj*> > line_split(3);
+
+        line_split = line.split(against);
+
+        c_polygon * polygon1 = (c_polygon*) this->clone();
+        c_polygon * polygon2 = (c_polygon*) this->clone();
+
+        if (loc_a == 1) {
+            polygon1->a = a;
+            polygon1->b =
+        }
+        if (loc_b == 1) {
+            line.set_points(a, c);
+        }
+        if (loc_c == 1) {
+            line.set_points(a, b);
+        }
+
+
+    }
+
+
+
+
 
     // Remaining cases: Two points above, one point below
     c_line line1, line2;

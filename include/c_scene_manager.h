@@ -55,6 +55,8 @@ class c_scene_manager {
 
         void render_bsp(std::string filename, c_camera& cam);
 
+        c_tree_node *root;
+
     private:
 
         /**
@@ -62,8 +64,6 @@ class c_scene_manager {
          */
         std::vector<c_tikz_obj*> scene_objects;
         std::vector<c_tikz_obj*> bsp_objects;
-
-        c_tree_node *root;
 
 };
 

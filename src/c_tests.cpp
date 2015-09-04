@@ -139,24 +139,25 @@ TEST_CASE("Render to file") {
 }
 
 TEST_CASE("BSP creation") {
-    c_polygon polygon1(0, 0, 0, 0, 6, 0, 6, 0, 0);
-    c_polygon polygon2(0, 0, 6, 0, 0, -6, 6, 12, -6);
+    c_polygon polygon1(0, 0, 0, 12, 12, 0, 12, 0, 0);
+    c_polygon polygon2(6, 0, -6, 6, 12, -6, 6, 0, 6);
+    c_polygon polygon3(0, 6, -6, 12, 6, -6, 0, 6, 6);
 
     polygon1.add_param("color=red");
     polygon2.add_param("color=blue");
+    polygon3.add_param("color=green");
 
     c_scene_manager scene_manager;
     scene_manager.add_to_scene(&polygon1);
     scene_manager.add_to_scene(&polygon2);
+    scene_manager.add_to_scene(&polygon3);
 
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
-    //scene_manager.render_to_file("testBsp.txt", &camera);
-
     scene_manager.compile_bsp();
 
-    scene_manager.render_bsp("testBsp.txt", camera);
+    //std::cout << *scene_manager.root;
 
-
+    //scene_manager.render_bsp("testBsp.txt", camera);
 
 }
