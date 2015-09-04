@@ -38,7 +38,7 @@ class c_line : public c_tikz_obj
         void set_points(c_point s, c_point e);
 
         std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
-        std::ostream& print(std::ostream& stream);
+        std::ostream& print(std::ostream& stream) const;
 
         bool can_split_against();
         c_polygon get_plane();

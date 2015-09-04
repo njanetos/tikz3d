@@ -62,7 +62,6 @@ class c_scene_manager {
         std::vector<c_tikz_obj*> bsp_objects;
 
         c_tree_node *root;
-        bool bsp_rendered;
 
 };
 

@@ -5,11 +5,10 @@
 
 c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
 
-    this->depth = depth;
+    left = nullptr;
+    right = nullptr;
 
-    // Nothing yet allocated
-    left_alloc = false;
-    right_alloc = false;
+    this->depth = depth;
 
     // Take all the stuff in 'process', split it up, create the appropriate nodes, (keeping the first one), delete the rest.
 
@@ -40,13 +39,15 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
         for (size_t i = 0; i < process.size(); ++i) {
             if ((int) i != index) {
                 std::vector< std::vector<c_tikz_obj*> > splitted = process[i]->split(&plane);
-                // Send everything behind me to the left node
-                left = new c_tree_node(splitted[0], depth+1);
-                left_alloc = true;
 
-                // Send everything in front of me to the right node
-                right = new c_tree_node(splitted[2], depth+1);
-                right_alloc = true;
+                if (splitted[0].size() > 0) {
+                    // Send everything behind me to the left node
+                    left = new c_tree_node(splitted[0], depth+1);
+                }
+                if (splitted[2].size() > 0) {
+                    // Send everything in front of me to the right node
+                    right = new c_tree_node(splitted[2], depth+1);
+                }
 
                 // Add everything at my position to my objects
                 for (size_t j = 0; j < splitted[1].size(); ++j) {
@@ -61,16 +62,12 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
 }
 
 c_tree_node::~c_tree_node() {
-    if (left_alloc) {
-        delete left;
-    }
-    if (right_alloc) {
-        delete right;
-    }
+    //delete left;
+    //delete right;
 
     // Delete my own objects
     for (size_t i = 0; i < my_objs.size(); ++i) {
-        delete my_objs[i];
+        //delete my_objs[i];
     }
 }
 
@@ -86,10 +83,11 @@ std::ostream& operator<< (std::ostream& stream, const c_tree_node& obj) {
         stream << *(obj.my_objs[i]);
     }
 
-    if (obj.left_alloc) {
-        stream << "Node size: " << obj.my_objs.size() << "\n" << *obj.left << *obj.right;
-    } else {
-        stream << "Node size: " << obj.my_objs.size() << "\n";
+    if (obj.left != nullptr) {
+        stream << *obj.left;
+    }
+    if (obj.right != nullptr) {
+        stream << *obj.right;
     }
 
     return stream;

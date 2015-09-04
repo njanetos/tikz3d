@@ -16,7 +16,6 @@ class c_tree_node
 
         std::vector<c_tikz_obj*> my_objs;
 
-        bool left_alloc, right_alloc;
         size_t depth;
     protected:
     private:

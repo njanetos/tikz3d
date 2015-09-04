@@ -43,7 +43,6 @@ class c_point : public c_tikz_obj
         c_tikz_obj* clone();
 
         std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
-        std::ostream& print(std::ostream& stream);
 
         bool can_split_against();
         c_polygon get_plane();
@@ -61,6 +60,8 @@ class c_point : public c_tikz_obj
         real operator*(const c_point& c) {
             return this->x * c.x + this->y * c.y + this->z * c.z;
         }
+
+        std::ostream& print(std::ostream& stream) const;
 
         real x, y, z;
         bool twod;

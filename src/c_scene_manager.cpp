@@ -3,18 +3,16 @@
 #include "c_tikz_obj.h"
 
 c_scene_manager::c_scene_manager() {
-    bsp_rendered = false;
+    root = nullptr;
 }
 
 c_scene_manager::~c_scene_manager() {
     // De-allocate all of the scene objects
     for (size_t i = 0; i < scene_objects.size(); ++i) {
-        delete scene_objects[i];
+        //delete scene_objects[i];
     }
 
-    if (bsp_rendered) {
-        delete root;
-    }
+    //delete root;
 }
 
 void c_scene_manager::add_to_scene(c_tikz_obj *source) {
@@ -162,11 +160,11 @@ void c_scene_manager::render_cross_to_file(std::string filename, c_camera *eye_1
 }
 
 void c_scene_manager::render_bsp() {
-    if (bsp_rendered) {
+
+    if (root != nullptr) {
         delete root;
     }
 
     root = new c_tree_node(scene_objects, 0);
 
-    std::cout << *root;
 }

@@ -62,7 +62,7 @@ class c_tikz_obj {
         virtual bool can_split_against() =0;
         virtual c_polygon get_plane() =0;
 
-        const std::ostream& print(const std::ostream& stream);
+        virtual std::ostream& print(std::ostream& stream) const =0;
 
 };
 
