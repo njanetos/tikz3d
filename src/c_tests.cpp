@@ -110,21 +110,21 @@ TEST_CASE("Render to file") {
     polygon2.add_param("opacity=0.2");
 
     // Add all the lines to the scene.
-    scene_manager.add_to_scene(&line1);
-    scene_manager.add_to_scene(&line2);
-    scene_manager.add_to_scene(&line3);
-    scene_manager.add_to_scene(&line4);
-    scene_manager.add_to_scene(&line5);
-    scene_manager.add_to_scene(&line6);
-    scene_manager.add_to_scene(&line7);
-    scene_manager.add_to_scene(&line8);
-    scene_manager.add_to_scene(&line9);
-    scene_manager.add_to_scene(&line10);
-    scene_manager.add_to_scene(&line11);
-    scene_manager.add_to_scene(&line12);
-    scene_manager.add_to_scene(&polygon1);
-    scene_manager.add_to_scene(&polygon2);
-    scene_manager.add_to_scene(&node);
+    scene_manager.add_to_scene(line1);
+    scene_manager.add_to_scene(line2);
+    scene_manager.add_to_scene(line3);
+    scene_manager.add_to_scene(line4);
+    scene_manager.add_to_scene(line5);
+    scene_manager.add_to_scene(line6);
+    scene_manager.add_to_scene(line7);
+    scene_manager.add_to_scene(line8);
+    scene_manager.add_to_scene(line9);
+    scene_manager.add_to_scene(line10);
+    scene_manager.add_to_scene(line11);
+    scene_manager.add_to_scene(line12);
+    scene_manager.add_to_scene(polygon1);
+    scene_manager.add_to_scene(polygon2);
+    scene_manager.add_to_scene(node);
 
     // Render the scene to file as a regular (no 3d glasses) projection.
     scene_manager.render_to_file("test.txt", camera);
@@ -150,9 +150,9 @@ TEST_CASE("BSP creation") {
     polygon3.add_param("color=blue");
 
     c_scene_manager scene_manager;
-    scene_manager.add_to_scene(&polygon1);
-    scene_manager.add_to_scene(&polygon2);
-    scene_manager.add_to_scene(&polygon3);
+    scene_manager.add_to_scene(polygon1);
+    scene_manager.add_to_scene(polygon2);
+    scene_manager.add_to_scene(polygon3);
 
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
@@ -182,18 +182,18 @@ TEST_CASE("Simple lighting") {
     c_polygon polygon12(12, 6, 6, 12, 0, 0, 12, 0, 6);
 
     c_scene_manager scene_manager;
-    scene_manager.add_to_scene(&polygon1);
-    scene_manager.add_to_scene(&polygon2);
-    scene_manager.add_to_scene(&polygon3);
-    scene_manager.add_to_scene(&polygon4);
-    scene_manager.add_to_scene(&polygon5);
-    scene_manager.add_to_scene(&polygon6);
-    scene_manager.add_to_scene(&polygon7);
-    scene_manager.add_to_scene(&polygon8);
-    scene_manager.add_to_scene(&polygon9);
-    scene_manager.add_to_scene(&polygon10);
-    scene_manager.add_to_scene(&polygon11);
-    scene_manager.add_to_scene(&polygon12);
+    scene_manager.add_to_scene(polygon1);
+    scene_manager.add_to_scene(polygon2);
+    scene_manager.add_to_scene(polygon3);
+    scene_manager.add_to_scene(polygon4);
+    scene_manager.add_to_scene(polygon5);
+    scene_manager.add_to_scene(polygon6);
+    scene_manager.add_to_scene(polygon7);
+    scene_manager.add_to_scene(polygon8);
+    scene_manager.add_to_scene(polygon9);
+    scene_manager.add_to_scene(polygon10);
+    scene_manager.add_to_scene(polygon11);
+    scene_manager.add_to_scene(polygon12);
 
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
@@ -203,5 +203,27 @@ TEST_CASE("Simple lighting") {
     scene_manager.compile_bsp();
 
     scene_manager.render_bsp("testColor.txt", camera);
+
+}
+
+real sine_func(real x, real y) {
+    return sin(sqrt(x*x + y*y));
+}
+
+TEST_CASE("Plot 3d graph") {
+
+    real (*func)(real, real);
+
+    func = &sine_func;
+
+    c_scene_manager scene_manager;
+    c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
+
+    scene_manager.plot(func, -8, -8, 8, 8, 20, 20);
+
+    c_point sun(0.5, 1, 1.5);
+    scene_manager.light(sun);
+    scene_manager.compile_bsp();
+    scene_manager.render_bsp("testPlot.txt", camera);
 
 }

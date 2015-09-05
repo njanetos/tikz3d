@@ -7,6 +7,7 @@
 #include "c_camera.h"
 #include "c_tikz_obj.h"
 #include "c_polygon.h"
+#include "c_line.h"
 #include "c_tree_node.h"
 
 class c_scene_manager {
@@ -27,7 +28,7 @@ class c_scene_manager {
          *
          *  \param source The object to be cloned and added to the scene.
          */
-        void add_to_scene(c_tikz_obj *source);
+        void add_to_scene(const c_tikz_obj& source);
 
         /**
          *  Renders all objects in the scene to a file.
@@ -52,9 +53,13 @@ class c_scene_manager {
 
         void light(c_point& sun);
 
+        void axis(real x, real y, real z);
+
         void compile_bsp();
 
         void render_bsp(std::string filename, c_camera& cam);
+
+        void plot(real (*func)(real x, real y), real start_x, real start_y,  real end_x, real end_y, size_t xdim, size_t ydim);
 
         c_tree_node *root;
 

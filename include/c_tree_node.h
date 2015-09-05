@@ -10,6 +10,7 @@ class c_camera;
 class c_tree_node
 {
     public:
+
         c_tree_node(std::vector<c_tikz_obj*> process, size_t depth);
         virtual ~c_tree_node();
 
