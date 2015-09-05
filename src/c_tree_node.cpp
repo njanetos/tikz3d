@@ -176,10 +176,10 @@ std::ostream& operator<< (std::ostream& stream, const c_tree_node& obj) {
         stream << *(obj.my_objs[i]);
     }
 
-    if (obj.left != nullptr) {
+    if (obj.left != NULL) {
         stream << *obj.left;
     }
-    if (obj.right != nullptr) {
+    if (obj.right != NULL) {
         stream << *obj.right;
     }
 
