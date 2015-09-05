@@ -9,7 +9,7 @@
 #include "c_scene_manager.h"
 #include "c_node.h"
 
-TEST_CASE("Polygon normals") {
+/*TEST_CASE("Polygon normals") {
     c_polygon polygon(0, 0, 0, 1, 0, 0, 0, 0, 1);
     c_point point = polygon.normal();
 
@@ -136,12 +136,12 @@ TEST_CASE("Render to file") {
     // Render a 'cross-eyed' projection.
     //scene_manager.render_cross_to_file("testCross.txt", &eye_1, &eye_2);
 
-}
+}*/
 
 TEST_CASE("BSP creation") {
     c_polygon polygon1(0, 0, 0, 12, 12, 0, 12, 0, 0);
     c_polygon polygon2(6, 0, -6, 6, 12, -6, 6, 0, 6);
-    c_polygon polygon3(0, 6, -6, 12, 6, -6, 0, 6, 6);
+    c_polygon polygon3(0, 3, -6, 12, 3, -6, 0, 3, 6);
 
     polygon1.add_param("color=red");
     polygon2.add_param("color=blue");
@@ -154,10 +154,10 @@ TEST_CASE("BSP creation") {
 
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
-    //scene_manager.compile_bsp();
+    scene_manager.compile_bsp();
 
-    //std::cout << *scene_manager.root;
+    std::cout << *scene_manager.root;
 
-    //scene_manager.render_bsp("testBsp.txt", camera);
+    scene_manager.render_bsp("testBsp.txt", camera);
 
 }

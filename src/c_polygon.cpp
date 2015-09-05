@@ -85,7 +85,6 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
 
     char loc_a, loc_b, loc_c;
 
-
     loc_a = utils::is_located(&a, against);
     loc_b = utils::is_located(&b, against);
     loc_c = utils::is_located(&c, against);
@@ -111,7 +110,7 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
     }
 
     // Check if point c is barely touching
-    if (loc_c == 1 && loc_b == loc_c) {
+    if (loc_c == 1 && loc_b == loc_a) {
         ret[loc_a].push_back(clone());
         return ret;
     }
@@ -137,38 +136,59 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
     // Check if 1 point touching, one above, one below
     if (loc_a == 1 || loc_b == 1 || loc_c == 1) {
         c_line line;
+        c_point split1, split2;
         if (loc_a == 1) {
-            line.set_points(b, c);
+            split1 = b;
+            split2 = c;
         }
         if (loc_b == 1) {
-            line.set_points(a, c);
+            split1 = a;
+            split2 = c;
         }
         if (loc_c == 1) {
-            line.set_points(a, b);
+            split1 = a;
+            split2 = b;
         }
 
-        std::vector< std::vector<c_tikz_obj*> > line_split(3);
+        line.set_points(split1, split2);
 
-        line_split = line.split(against);
+        // Split the line
+        real split_pos = utils::get_split_point(line, *against);
+
+        c_point split_point = split1*split_pos + split2*(1-split_pos);
 
         c_polygon * polygon1 = (c_polygon*) this->clone();
         c_polygon * polygon2 = (c_polygon*) this->clone();
 
         if (loc_a == 1) {
             polygon1->a = a;
-            //polygon1->b =
+            polygon1->b = b;
+            polygon1->c = split_point;
+            polygon2->a = a;
+            polygon2->b = c;
+            polygon2->c = split_point;
         }
         if (loc_b == 1) {
-            line.set_points(a, c);
+            polygon1->a = b;
+            polygon1->b = c;
+            polygon1->c = split_point;
+            polygon2->a = b;
+            polygon2->b = a;
+            polygon2->c = split_point;
         }
         if (loc_c == 1) {
-            line.set_points(a, b);
+            polygon1->a = c;
+            polygon1->b = b;
+            polygon1->c = split_point;
+            polygon2->a = c;
+            polygon2->b = a;
+            polygon2->c = split_point;
         }
 
         ret[0].push_back(polygon1);
         ret[2].push_back(polygon2);
 
-
+        return ret;
     }
 
     // Remaining cases: Two points above, one point below
@@ -176,23 +196,23 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
     bool two_above;
 
     if (loc_a == 0 && loc_b == 2 && loc_c == 2) {
-        // Split ab and ac against the polygon
-        line1.set_points(a, b);
-        line2.set_points(a, c);
+        // Split ba and ca against the polygon
+        line1.set_points(b, a);
+        line2.set_points(c, a);
         two_above = true;
     }
 
     if (loc_a == 2 && loc_b == 0 && loc_c == 2) {
-        // Split ba and bc against the polygon
-        line1.set_points(b, a);
-        line2.set_points(b, c);
+        // Split ab and cb against the polygon
+        line1.set_points(a, b);
+        line2.set_points(c, b);
         two_above = true;
     }
 
     if (loc_a == 2 && loc_b == 2 && loc_c == 0) {
-        // Split ca and cb against the polygon
-        line1.set_points(c, a);
-        line2.set_points(c, b);
+        // Split ac and bc against the polygon
+        line1.set_points(a, c);
+        line2.set_points(b, c);
         two_above = true;
     }
 
@@ -234,21 +254,21 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
                       ((c_line*)line1_split[loc][0])->ey,
                       ((c_line*)line1_split[loc][0])->ez);
 
-    c_point point_left(((c_line*)line2_split[2-loc][0])->ex,
-                       ((c_line*)line2_split[2-loc][0])->ey,
-                       ((c_line*)line2_split[2-loc][0])->ez);
+    c_point point_left(((c_line*)line1_split[loc][0])->sx,
+                       ((c_line*)line1_split[loc][0])->sy,
+                       ((c_line*)line1_split[loc][0])->sz);
 
-    c_point point_right(((c_line*)line1_split[2-loc][0])->ex,
-                        ((c_line*)line1_split[2-loc][0])->ey,
-                        ((c_line*)line1_split[2-loc][0])->ez);
+    c_point point_right(((c_line*)line2_split[loc][0])->sx,
+                        ((c_line*)line2_split[loc][0])->sy,
+                        ((c_line*)line2_split[loc][0])->sz);
 
-    c_point bottom_left(((c_line*)line2_split[2-loc][0])->sx,
-                        ((c_line*)line2_split[2-loc][0])->sy,
-                        ((c_line*)line2_split[2-loc][0])->sz);
+    c_point bottom_left(((c_line*)line1_split[2-loc][0])->sx,
+                        ((c_line*)line1_split[2-loc][0])->sy,
+                        ((c_line*)line1_split[2-loc][0])->sz);
 
-    c_point bottom_right(((c_line*)line1_split[2-loc][0])->sx,
-                         ((c_line*)line1_split[2-loc][0])->sy,
-                         ((c_line*)line1_split[2-loc][0])->sz);
+    c_point bottom_right(((c_line*)line2_split[2-loc][0])->sx,
+                         ((c_line*)line2_split[2-loc][0])->sy,
+                         ((c_line*)line2_split[2-loc][0])->sz);
 
     c_polygon * polygon1 = (c_polygon*) this->clone();
     c_polygon * polygon2 = (c_polygon*) this->clone();

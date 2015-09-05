@@ -1,6 +1,7 @@
 #include "utils.h"
 
 #include "c_polygon.h"
+#include "c_line.h"
 
 real utils::det2(real a, real b,
                  real c, real d) {
@@ -43,6 +44,23 @@ char utils::is_located(real x, real y, real z, c_polygon *polygon) {
 
     return is_located(&point, polygon);
 
+}
+
+real utils::get_split_point(const c_line& line, const c_polygon& polygon) {
+
+    real t;
+
+    t = -1*utils::det4(1, 1, 1, 1,
+                       polygon.a.x, polygon.b.x, polygon.c.x, line.sx,
+                       polygon.a.y, polygon.b.y, polygon.c.y, line.sy,
+                       polygon.a.z, polygon.b.z, polygon.c.z, line.sz);
+
+    t = t / utils::det4(1, 1, 1, 0,
+                        polygon.a.x, polygon.b.x, polygon.c.x, line.ex - line.sx,
+                        polygon.a.y, polygon.b.y, polygon.c.y, line.ey - line.sy,
+                        polygon.a.z, polygon.b.z, polygon.c.z, line.ez - line.sz);
+
+    return t;
 }
 
 c_point utils::project(c_point *point3d, c_camera *cam) {

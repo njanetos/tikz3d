@@ -57,6 +57,11 @@ class c_point : public c_tikz_obj
             return point;
         }
 
+        c_point operator*(const real c) {
+            c_point point(this->x*c, this->y*c, this->z*c);
+            return point;
+        }
+
         real operator*(const c_point& c) {
             return this->x * c.x + this->y * c.y + this->z * c.z;
         }

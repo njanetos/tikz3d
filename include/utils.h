@@ -19,7 +19,9 @@ class utils {
 
         static real det4(real a, real b, real c, real d, real e, real f, real g, real h, real i, real j, real k, real l, real m, real n, real o, real p);
 
-        static char is_located(c_point *point, c_polygon *polygon);
+        static real get_split_point(const c_line& line, const c_polygon& polygon);
+
+        static char is_located(c_point* point, c_polygon* polygon);
 
         static char is_located(real x, real y, real z, c_polygon *polygon);
 

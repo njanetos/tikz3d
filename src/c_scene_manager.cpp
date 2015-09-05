@@ -3,16 +3,17 @@
 #include "c_tikz_obj.h"
 
 c_scene_manager::c_scene_manager() {
-    root = nullptr;
+    // Initialize to null pointer
+    root = NULL;
 }
 
 c_scene_manager::~c_scene_manager() {
     // De-allocate all of the scene objects
     for (size_t i = 0; i < scene_objects.size(); ++i) {
-        //delete scene_objects[i];
+        delete scene_objects[i];
     }
 
-    //delete root;
+    delete root;
 }
 
 void c_scene_manager::add_to_scene(c_tikz_obj *source) {
@@ -49,6 +50,7 @@ void c_scene_manager::render_to_file(std::string filename, c_camera *cam) {
     for (size_t i = 0; i < screen_objects.size(); ++i) {
         delete screen_objects[i];
     }
+    screen_objects.resize(0);
 }
 
 void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_camera *eye2) {
@@ -99,6 +101,7 @@ void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_
     for (size_t i = 0; i < screen_objects.size(); ++i) {
         delete screen_objects[i];
     }
+    screen_objects.resize(0);
 
     sstm << "\\end{tikzpicture}";
 
@@ -161,15 +164,23 @@ void c_scene_manager::render_cross_to_file(std::string filename, c_camera *eye_1
 
 void c_scene_manager::compile_bsp() {
 
-    if (root != nullptr) {
-        delete root;
+    delete root;
+
+    // Clone all the scene objects for the tree
+    std::vector<c_tikz_obj*> objs_for_processing(scene_objects.size());
+    for (size_t i = 0; i < scene_objects.size(); ++i) {
+        objs_for_processing[i] = scene_objects[i]->clone();
     }
 
-    root = new c_tree_node(scene_objects, 0);
+    root = new c_tree_node(objs_for_processing, 0);
 
 }
 
 void c_scene_manager::render_bsp(std::string filename, c_camera& cam) {
+
+    if (root == NULL) {
+        compile_bsp();
+    }
 
     std::ofstream sstm;
     sstm.open(filename.c_str());
@@ -178,10 +189,8 @@ void c_scene_manager::render_bsp(std::string filename, c_camera& cam) {
 
     sstm << "  \\draw (0, 0)--(0,0.01); \n";
 
-    if (root != nullptr) {
-        root->project(cam);
-        root->render(sstm, cam);
-    }
+    root->project(cam);
+    root->render(sstm, cam);
 
     sstm << "\\end{tikzpicture}\n";
 

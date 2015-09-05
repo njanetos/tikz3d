@@ -77,15 +77,7 @@ std::vector< std::vector<c_tikz_obj*> > c_line::split(c_polygon *against) {
 
     real t;
 
-    t = -1*utils::det4(1, 1, 1, 1,
-                       against->a.x, against->b.x, against->c.x, sx,
-                       against->a.y, against->b.y, against->c.y, sy,
-                       against->a.z, against->b.z, against->c.z, sz);
-
-    t = t / utils::det4(1, 1, 1, 0,
-                        against->a.x, against->b.x, against->c.x, ex - sx,
-                        against->a.y, against->b.y, against->c.y, ey - sy,
-                        against->a.z, against->b.z, against->c.z, ez - sz);
+    t = utils::get_split_point(*this, *against);
 
     real int_x, int_y, int_z;
 
