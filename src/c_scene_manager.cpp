@@ -1,7 +1,5 @@
 #include "c_scene_manager.h"
 
-#include "c_tikz_obj.h"
-
 c_scene_manager::c_scene_manager() {
     // Initialize to null pointer
     root = NULL;
@@ -195,5 +193,27 @@ void c_scene_manager::render_bsp(std::string filename, c_camera& cam) {
     sstm << "\\end{tikzpicture}\n";
 
     sstm.close();
+
+}
+
+void c_scene_manager::light(c_point& sun) {
+
+    c_point norm_sun = sun.normalize();
+
+    real dev;
+    c_polygon plane;
+    c_point normal;
+
+    for (size_t i = 0; i < scene_objects.size(); ++i) {
+        if (scene_objects[i]->can_light()) {
+            plane = scene_objects[i]->get_plane();
+            normal = plane.normal();
+            dev = normal*norm_sun;
+        }
+
+        std::stringstream sstm;
+        sstm << "black!" << (int) 100*(dev+1)/2;
+        scene_objects[i]->add_param(sstm.str());
+    }
 
 }

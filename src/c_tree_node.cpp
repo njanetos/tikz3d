@@ -5,8 +5,6 @@
 
 c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
 
-    std::cout << "Process: " << process.size() << ", " << depth << "\n";
-
     left = NULL;
     right = NULL;
 
@@ -26,7 +24,6 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
     // Are there no splittable objects remaining?
     // Keep them all
     if (index == -1 || process.size() == 1) {
-        std::cout << "Imma leaf \n";
         for (size_t i = 0; i < process.size(); ++i) {
             my_objs.push_back(process[i]->clone());
         }
@@ -44,26 +41,14 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
         // Split the rest against me
         for (size_t i = 0; i < process.size(); ++i) {
             if ((int) i != index) {
-                std::cout << "Splitting\n";
-                std::cout << *process[i];
-                std::cout << "against\n";
-                std::cout << plane;
                 std::vector< std::vector<c_tikz_obj*> > splitted = process[i]->split(&plane);
-
-                std::cout << "Result: \n";
-
-                std::cout << "  Behind:\n";
 
                 for (size_t j = 0; j < splitted[0].size(); ++j) {
                     to_left.push_back(splitted[0][j]);
-                    std::cout << *splitted[0][j];
                 }
-
-                std::cout << "  In front:\n";
 
                 for (size_t j = 0; j < splitted[2].size(); ++j) {
                     to_right.push_back(splitted[2][j]);
-                    std::cout << *splitted[2][j];
                 }
 
                 // Add everything at my position to my objects

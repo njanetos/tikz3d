@@ -75,6 +75,18 @@ c_polygon c_point::get_plane() {
     return polygon;
 }
 
+c_point c_point::normalize() {
+    return *this/length();
+}
+
+real c_point::length() {
+    return sqrt(x*x + y*y + z*z);
+}
+
+bool c_point::can_light() {
+    return false;
+}
+
 std::ostream& c_point::print(std::ostream& stream) const {
     stream << "c_point: (" << x << ", " << y << ", " << z << ").\n";
     return stream;

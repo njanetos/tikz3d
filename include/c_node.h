@@ -39,6 +39,7 @@ class c_node : public c_tikz_obj
         std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
 
         bool can_split_against();
+        bool can_light();
         c_polygon get_plane();
 
         std::ostream& print(std::ostream& stream) const;

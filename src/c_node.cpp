@@ -65,6 +65,10 @@ c_polygon c_node::get_plane() {
     return polygon;
 }
 
+bool c_node::can_light() {
+    return false;
+}
+
 std::ostream& c_node::print(std::ostream& stream) const {
     return stream;
 }

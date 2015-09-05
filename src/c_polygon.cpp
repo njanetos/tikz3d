@@ -74,7 +74,7 @@ c_point c_polygon::normal() {
     z = (a.x - c.x)*(b.y - c.y) - (a.y - c.y)*(b.x - c.x);
 
     c_point point(x, y, z);
-    return point;
+    return point.normalize();
 }
 
 std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
@@ -88,8 +88,6 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
     loc_a = utils::is_located(&a, against);
     loc_b = utils::is_located(&b, against);
     loc_c = utils::is_located(&c, against);
-
-    std::cout << (int) loc_a << ", " << (int) loc_b << ", " << (int) loc_c << "\n";
 
     // Check if we're above or below or inside
     if (loc_a == loc_b && loc_b == loc_c) {
@@ -300,6 +298,10 @@ bool c_polygon::can_split_against() {
 c_polygon c_polygon::get_plane() {
     c_polygon polygon(a, b, c);
     return polygon;
+}
+
+bool c_polygon::can_light() {
+    return true;
 }
 
 std::ostream& c_polygon::print(std::ostream& stream) const {

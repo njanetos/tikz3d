@@ -130,6 +130,10 @@ c_polygon c_line::get_plane() {
     return polygon;
 }
 
+bool c_line::can_light() {
+    return false;
+}
+
 std::ostream& c_line::print(std::ostream& stream) const {
     stream << "c_line: (" << sx << ", " << sy << ", " << sz << ") -- (" << ex << ", " << ey << ", " << ez << ").\n";
     return stream;

@@ -60,6 +60,7 @@ class c_tikz_obj {
         std::vector<std::string> params;
 
         virtual bool can_split_against() =0;
+        virtual bool can_light() =0;
         virtual c_polygon get_plane() =0;
 
         virtual std::ostream& print(std::ostream& stream) const =0;

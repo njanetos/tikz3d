@@ -45,6 +45,7 @@ class c_point : public c_tikz_obj
         std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
 
         bool can_split_against();
+        bool can_light();
         c_polygon get_plane();
 
         c_point operator+(const c_point& c) {
@@ -62,9 +63,18 @@ class c_point : public c_tikz_obj
             return point;
         }
 
+        c_point operator/(const real c) {
+            c_point point(this->x/c, this->y/c, this->z/c);
+            return point;
+        }
+
         real operator*(const c_point& c) {
             return this->x * c.x + this->y * c.y + this->z * c.z;
         }
+
+        c_point normalize();
+
+        real length();
 
         std::ostream& print(std::ostream& stream) const;
 

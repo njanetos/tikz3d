@@ -6,9 +6,8 @@
 
 #include "c_camera.h"
 #include "c_tikz_obj.h"
+#include "c_polygon.h"
 #include "c_tree_node.h"
-
-class c_tikz_obj;
 
 class c_scene_manager {
     public:
@@ -50,6 +49,8 @@ class c_scene_manager {
         void render_3d_to_file(std::string filename, c_camera *eye1, c_camera *eye2);
 
         void render_cross_to_file(std::string filename, c_camera *eye_1, c_camera *eye_2);
+
+        void light(c_point& sun);
 
         void compile_bsp();
 

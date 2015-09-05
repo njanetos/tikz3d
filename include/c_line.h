@@ -41,6 +41,7 @@ class c_line : public c_tikz_obj
         std::ostream& print(std::ostream& stream) const;
 
         bool can_split_against();
+        bool can_light();
         c_polygon get_plane();
 
         real sx, sy, sz, ex, ey, ez;

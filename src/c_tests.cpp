@@ -144,8 +144,8 @@ TEST_CASE("BSP creation") {
     c_polygon polygon3(0, 3, -6, 12, 3, -6, 0, 3, 6);
 
     polygon1.add_param("color=red");
-    polygon2.add_param("color=blue");
-    polygon3.add_param("color=green");
+    polygon2.add_param("color=green");
+    polygon3.add_param("color=blue");
 
     c_scene_manager scene_manager;
     scene_manager.add_to_scene(&polygon1);
@@ -156,8 +156,50 @@ TEST_CASE("BSP creation") {
 
     scene_manager.compile_bsp();
 
-    std::cout << *scene_manager.root;
-
     scene_manager.render_bsp("testBsp.txt", camera);
+}
+
+
+TEST_CASE("Simple lighting") {
+    c_polygon polygon1(0, 0, 0, 12, 0, 0, 12, 6, 0);
+    c_polygon polygon2(0, 0, 0, 12, 6, 0, 0, 6, 0);
+
+    c_polygon polygon3(0, 0, 0, 12, 0, 6, 12, 0, 0);
+    c_polygon polygon4(0, 0, 0, 0, 0, 6, 12, 0, 6);
+
+    c_polygon polygon5(0, 0, 0, 0, 6, 0, 0, 6, 6);
+    c_polygon polygon6(0, 0, 0, 0, 6, 6, 0, 0, 6);
+
+    c_polygon polygon7(0, 6, 0, 12, 6, 0, 12, 6, 6);
+    c_polygon polygon8(0, 6, 0, 12, 6, 6, 0, 6, 6);
+
+    c_polygon polygon9(0, 6, 6, 12, 6, 6, 0, 0, 6);
+    c_polygon polygon10(0, 0, 6, 12, 6, 6, 12, 0, 6);
+
+    c_polygon polygon11(12, 6, 6, 12, 6, 0, 12, 0, 0);
+    c_polygon polygon12(12, 6, 6, 12, 0, 0, 12, 0, 6);
+
+    c_scene_manager scene_manager;
+    scene_manager.add_to_scene(&polygon1);
+    scene_manager.add_to_scene(&polygon2);
+    scene_manager.add_to_scene(&polygon3);
+    scene_manager.add_to_scene(&polygon4);
+    scene_manager.add_to_scene(&polygon5);
+    scene_manager.add_to_scene(&polygon6);
+    scene_manager.add_to_scene(&polygon7);
+    scene_manager.add_to_scene(&polygon8);
+    scene_manager.add_to_scene(&polygon9);
+    scene_manager.add_to_scene(&polygon10);
+    scene_manager.add_to_scene(&polygon11);
+    scene_manager.add_to_scene(&polygon12);
+
+    c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
+
+    c_point sun(0.5, 1, 1.5);
+    scene_manager.light(sun);
+
+    scene_manager.compile_bsp();
+
+    scene_manager.render_bsp("testColor.txt", camera);
 
 }
