@@ -35,7 +35,7 @@ class c_scene_manager {
          *  \param filename Where to render it to.
          *  \param cam The camera to project against.
          */
-        void render_to_file(std::string filename, c_camera *cam);
+        void render_to_file(std::string filename, const c_camera& cam);
 
         /**
          *  Renders all objects in the scene to a file, twice,
@@ -46,9 +46,9 @@ class c_scene_manager {
          *  \param eye1 The camera representing the left eye.
          *  \param eye2 The camera representing the right eye.
          */
-        void render_3d_to_file(std::string filename, c_camera *eye1, c_camera *eye2);
+        void render_3d_to_file(std::string filename, const c_camera& eye1, const c_camera& eye2);
 
-        void render_cross_to_file(std::string filename, c_camera *eye_1, c_camera *eye_2);
+        void render_cross_to_file(std::string filename, const c_camera& eye_1, const c_camera& eye_2);
 
         void light(c_point& sun);
 

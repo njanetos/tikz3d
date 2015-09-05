@@ -35,7 +35,7 @@ class c_tikz_obj {
          *
          *  \return Pointer to the cloned object.
          */
-        virtual c_tikz_obj* clone() =0;
+        virtual c_tikz_obj* clone() const =0;
 
         /**
          *  Projects this object against a camera.
@@ -43,25 +43,25 @@ class c_tikz_obj {
          *  \param cam The camera to project against.
          *  \return Pointer to projected object.
          */
-        virtual c_tikz_obj* project(c_camera *cam) =0;
+        virtual c_tikz_obj* project(const c_camera& cam) const =0;
 
-        virtual std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against) =0;
+        virtual std::vector< std::vector<c_tikz_obj*> > split(const c_polygon& against) const =0;
 
         /**
          *  Writes this object to tikz code.
          *
          *  \return A string containing the tikz code.
          */
-        virtual std::string write() =0;
+        virtual std::string write() const =0;
 
         /**
          *  A list of parameters for tikz.
          */
         std::vector<std::string> params;
 
-        virtual bool can_split_against() =0;
-        virtual bool can_light() =0;
-        virtual c_polygon get_plane() =0;
+        virtual bool can_split_against() const =0;
+        virtual bool can_light() const =0;
+        virtual c_polygon get_plane() const =0;
 
         virtual std::ostream& print(std::ostream& stream) const =0;
 

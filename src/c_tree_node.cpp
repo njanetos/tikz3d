@@ -41,7 +41,7 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
         // Split the rest against me
         for (size_t i = 0; i < process.size(); ++i) {
             if ((int) i != index) {
-                std::vector< std::vector<c_tikz_obj*> > splitted = process[i]->split(&plane);
+                std::vector< std::vector<c_tikz_obj*> > splitted = process[i]->split(plane);
 
                 for (size_t j = 0; j < splitted[0].size(); ++j) {
                     to_left.push_back(splitted[0][j]);
@@ -103,7 +103,7 @@ std::ostream& c_tree_node::render(std::ostream& stream, c_camera& cam) const {
     } else {
         // Otherwise, we need to do more work
         c_polygon plane = my_objs[0]->get_plane();
-        char loc = utils::is_located(cam.pos_x, cam.pos_y, cam.pos_z, &plane);
+        char loc = utils::is_located(cam.pos_x, cam.pos_y, cam.pos_z, plane);
 
         // If we're in front render everything in the left node first
         if (loc == 2) {
@@ -151,7 +151,7 @@ void c_tree_node::project(c_camera& cam) {
 
     // New projection
     for (size_t i = 0; i < my_objs.size(); ++i) {
-        proj_objs.push_back(my_objs[i]->project(&cam));
+        proj_objs.push_back(my_objs[i]->project(cam));
     }
 
     // Project mah children

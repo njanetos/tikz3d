@@ -18,11 +18,11 @@ c_node::~c_node() {
     //dtor
 }
 
-c_tikz_obj* c_node::project(c_camera *cam) {
-    return cam->project(this);
+c_tikz_obj* c_node::project(const c_camera& cam) const {
+    return cam.project(*this);
 }
 
-std::string c_node::write() {
+std::string c_node::write() const {
     std::stringstream sstm;
 
     sstm << "\\node[";
@@ -37,7 +37,7 @@ std::string c_node::write() {
     return sstm.str();
 }
 
-c_tikz_obj* c_node::clone() {
+c_tikz_obj* c_node::clone() const {
 
     c_node *node = new c_node(x, y, z, text);
     node->add_params(params);
@@ -45,7 +45,7 @@ c_tikz_obj* c_node::clone() {
 
 }
 
-std::vector< std::vector<c_tikz_obj*> > c_node::split(c_polygon *against) {
+std::vector< std::vector<c_tikz_obj*> > c_node::split(const c_polygon& against) const {
 
     std::vector< std::vector<c_tikz_obj*> > ret(3);
 
@@ -56,16 +56,16 @@ std::vector< std::vector<c_tikz_obj*> > c_node::split(c_polygon *against) {
     return ret;
 }
 
-bool c_node::can_split_against() {
+bool c_node::can_split_against() const {
     return false;
 }
 
-c_polygon c_node::get_plane() {
+c_polygon c_node::get_plane() const {
     c_polygon polygon;
     return polygon;
 }
 
-bool c_node::can_light() {
+bool c_node::can_light() const {
     return false;
 }
 

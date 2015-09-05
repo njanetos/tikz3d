@@ -19,7 +19,7 @@ void c_scene_manager::add_to_scene(c_tikz_obj *source) {
     scene_objects.push_back(scene_object);
 }
 
-void c_scene_manager::render_to_file(std::string filename, c_camera *cam) {
+void c_scene_manager::render_to_file(std::string filename, const c_camera& cam) {
 
     std::vector<c_tikz_obj*> screen_objects(scene_objects.size());
 
@@ -51,7 +51,7 @@ void c_scene_manager::render_to_file(std::string filename, c_camera *cam) {
     screen_objects.resize(0);
 }
 
-void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_camera *eye2) {
+void c_scene_manager::render_3d_to_file(std::string filename, const c_camera& eye1, const c_camera& eye2) {
 
     std::ofstream sstm;
     sstm.open(filename.c_str());
@@ -107,7 +107,7 @@ void c_scene_manager::render_3d_to_file(std::string filename, c_camera *eye1, c_
 
 }
 
-void c_scene_manager::render_cross_to_file(std::string filename, c_camera *eye_1, c_camera *eye_2) {
+void c_scene_manager::render_cross_to_file(std::string filename, const c_camera& eye_1, const c_camera& eye_2) {
 
     std::ofstream sstm;
     sstm.open(filename.c_str());

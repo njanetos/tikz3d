@@ -38,43 +38,43 @@ class c_point : public c_tikz_obj
 
         virtual ~c_point();
 
-        std::string write();
-        c_tikz_obj* project(c_camera *cam);
-        c_tikz_obj* clone();
+        std::string write() const;
+        c_tikz_obj* project(const c_camera& cam) const;
+        c_tikz_obj* clone() const;
 
-        std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
+        std::vector< std::vector<c_tikz_obj*> > split(const c_polygon& against) const;
 
-        bool can_split_against();
-        bool can_light();
-        c_polygon get_plane();
+        bool can_split_against() const;
+        bool can_light() const;
+        c_polygon get_plane() const;
 
-        c_point operator+(const c_point& c) {
+        c_point operator+(const c_point& c) const {
             c_point point(this->x + c.x, this->y + c.y, this->z + c.z);
             return point;
         }
 
-        c_point operator-(const c_point& c) {
+        c_point operator-(const c_point& c) const {
             c_point point(this->x - c.x, this->y - c.y, this->z - c.z);
             return point;
         }
 
-        c_point operator*(const real c) {
+        c_point operator*(const real c) const {
             c_point point(this->x*c, this->y*c, this->z*c);
             return point;
         }
 
-        c_point operator/(const real c) {
+        c_point operator/(const real c) const {
             c_point point(this->x/c, this->y/c, this->z/c);
             return point;
         }
 
-        real operator*(const c_point& c) {
+        real operator*(const c_point& c) const {
             return this->x * c.x + this->y * c.y + this->z * c.z;
         }
 
-        c_point normalize();
+        c_point normalize() const;
 
-        real length();
+        real length() const;
 
         std::ostream& print(std::ostream& stream) const;
 

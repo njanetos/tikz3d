@@ -29,11 +29,11 @@ c_point::~c_point() {
 }
 
 
-c_tikz_obj* c_point::project(c_camera *cam) {
-    return cam->project(this);
+c_tikz_obj* c_point::project(const c_camera& cam) const {
+    return cam.project(*this);
 }
 
-std::string c_point::write() {
+std::string c_point::write() const {
 
     std::stringstream sstm;
 
@@ -49,41 +49,41 @@ std::string c_point::write() {
     return sstm.str();
 }
 
-c_tikz_obj* c_point::clone() {
+c_tikz_obj* c_point::clone() const {
     c_point* c = new c_point(x, y, z);
     c->add_params(params);
     return c;
 }
 
-std::vector< std::vector<c_tikz_obj*> > c_point::split(c_polygon *against) {
+std::vector< std::vector<c_tikz_obj*> > c_point::split(const c_polygon& against) const {
 
     std::vector< std::vector<c_tikz_obj*> > ret(3);
 
-    char loc = utils::is_located(this, against);
+    char loc = utils::is_located(*this, against);
 
     ret[loc].push_back(clone());
 
     return ret;
 }
 
-bool c_point::can_split_against() {
+bool c_point::can_split_against() const {
     return false;
 }
 
-c_polygon c_point::get_plane() {
+c_polygon c_point::get_plane() const {
     c_polygon polygon;
     return polygon;
 }
 
-c_point c_point::normalize() {
+c_point c_point::normalize() const {
     return *this/length();
 }
 
-real c_point::length() {
+real c_point::length() const {
     return sqrt(x*x + y*y + z*z);
 }
 
-bool c_point::can_light() {
+bool c_point::can_light() const {
     return false;
 }
 

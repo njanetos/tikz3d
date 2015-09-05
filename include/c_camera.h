@@ -38,7 +38,7 @@ class c_camera
          *  \param point3d The object to project.
          *  \return Pointer to the projected object.
          */
-        c_tikz_obj* project(c_point * point3d);
+        c_tikz_obj* project(const c_point& point3d) const;
 
         /**
          *  Visitor pattern method for projecting a 3D line.
@@ -46,7 +46,7 @@ class c_camera
          *  \param point3d The object to project.
          *  \return Pointer to the projected object.
          */
-        c_tikz_obj* project(c_line * line3d);
+        c_tikz_obj* project(const c_line& line3d) const;
 
         /**
          *  Visitor pattern method for projecting a 3D polygon.
@@ -54,7 +54,7 @@ class c_camera
          *  \param point3d The object to project.
          *  \return Pointer to the projected object.
          */
-        c_tikz_obj* project(c_polygon * polygon3d);
+        c_tikz_obj* project(const c_polygon& polygon3d) const;
 
         /**
          *  Visitor pattern method for projecting a 3D node.
@@ -62,7 +62,7 @@ class c_camera
          *  \param point3d The object to project.
          *  \return Pointer to the projected object.
          */
-        c_tikz_obj* project(c_node * node3d);
+        c_tikz_obj* project(const c_node& node3d) const;
 
         real pos_x, pos_y, pos_z, tx, ty, tz;
 };

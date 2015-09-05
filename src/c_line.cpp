@@ -26,11 +26,11 @@ c_line::~c_line() {
     //dtor
 }
 
-c_tikz_obj* c_line::project(c_camera *cam) {
-    return cam->project(this);
+c_tikz_obj* c_line::project(const c_camera& cam) const {
+    return cam.project(*this);
 }
 
-std::string c_line::write() {
+std::string c_line::write() const {
 
     std::stringstream sstm;
 
@@ -46,13 +46,13 @@ std::string c_line::write() {
     return sstm.str();
 }
 
-c_tikz_obj* c_line::clone() {
+c_tikz_obj* c_line::clone() const {
     c_line *line = new c_line(sx, sy, sz, ex, ey, ez);
     line->add_params(params);
     return line;
 }
 
-std::vector< std::vector<c_tikz_obj*> > c_line::split(c_polygon *against) {
+std::vector< std::vector<c_tikz_obj*> > c_line::split(const c_polygon& against) const {
 
     int loc_s, loc_e;
 
@@ -77,7 +77,7 @@ std::vector< std::vector<c_tikz_obj*> > c_line::split(c_polygon *against) {
 
     real t;
 
-    t = utils::get_split_point(*this, *against);
+    t = utils::get_split_point(*this, against);
 
     real int_x, int_y, int_z;
 
@@ -119,18 +119,18 @@ void c_line::set_points(c_point s, c_point e) {
     ez = e.z;
 }
 
-bool c_line::can_split_against() {
+bool c_line::can_split_against() const {
     return true;
 }
 
-c_polygon c_line::get_plane() {
+c_polygon c_line::get_plane() const {
     c_point point1(sx, sy, sz);
     c_point point2(ex, ey, ez);
     c_polygon polygon(sx, sy, sz, ex, ey, ez, 0, 0, 0);
     return polygon;
 }
 
-bool c_line::can_light() {
+bool c_line::can_light() const {
     return false;
 }
 

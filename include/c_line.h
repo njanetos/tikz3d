@@ -31,18 +31,18 @@ class c_line : public c_tikz_obj
 
         virtual ~c_line();
 
-        std::string write();
-        c_tikz_obj* project(c_camera *cam);
-        c_tikz_obj* clone();
+        std::string write() const;
+        c_tikz_obj* project(const c_camera& cam) const;
+        c_tikz_obj* clone() const;
 
         void set_points(c_point s, c_point e);
 
-        std::vector< std::vector<c_tikz_obj*> > split(c_polygon *against);
+        std::vector< std::vector<c_tikz_obj*> > split(const c_polygon& against) const;
         std::ostream& print(std::ostream& stream) const;
 
-        bool can_split_against();
-        bool can_light();
-        c_polygon get_plane();
+        bool can_split_against() const;
+        bool can_light() const;
+        c_polygon get_plane() const;
 
         real sx, sy, sz, ex, ey, ez;
 };

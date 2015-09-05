@@ -39,11 +39,11 @@ c_polygon::~c_polygon() {
 }
 
 
-c_tikz_obj* c_polygon::project(c_camera *cam) {
-    return cam->project(this);
+c_tikz_obj* c_polygon::project(const c_camera& cam) const {
+    return cam.project(*this);
 }
 
-std::string c_polygon::write() {
+std::string c_polygon::write() const {
     std::stringstream sstm;
 
     sstm << "\\filldraw[";
@@ -58,7 +58,7 @@ std::string c_polygon::write() {
     return sstm.str();
 }
 
-c_tikz_obj* c_polygon::clone() {
+c_tikz_obj* c_polygon::clone() const {
 
     c_polygon *polygon = new c_polygon(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z);
     polygon->add_params(params);
@@ -66,7 +66,7 @@ c_tikz_obj* c_polygon::clone() {
 
 }
 
-c_point c_polygon::normal() {
+c_point c_polygon::normal() const {
     real x, y, z;
 
     x = (a.y - c.y)*(b.z - c.z) - (a.z - c.z)*(b.y - c.y);
@@ -77,7 +77,7 @@ c_point c_polygon::normal() {
     return point.normalize();
 }
 
-std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
+std::vector< std::vector<c_tikz_obj*> > c_polygon::split(const c_polygon& against) const {
 
     std::vector< std::vector<c_tikz_obj*> > ret(3);
 
@@ -85,9 +85,9 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
 
     char loc_a, loc_b, loc_c;
 
-    loc_a = utils::is_located(&a, against);
-    loc_b = utils::is_located(&b, against);
-    loc_c = utils::is_located(&c, against);
+    loc_a = utils::is_located(a, against);
+    loc_b = utils::is_located(b, against);
+    loc_c = utils::is_located(c, against);
 
     // Check if we're above or below or inside
     if (loc_a == loc_b && loc_b == loc_c) {
@@ -151,7 +151,7 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
         line.set_points(split1, split2);
 
         // Split the line
-        real split_pos = utils::get_split_point(line, *against);
+        real split_pos = utils::get_split_point(line, against);
 
         c_point split_point = split1*split_pos + split2*(1-split_pos);
 
@@ -291,16 +291,16 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
     return ret;
 }
 
-bool c_polygon::can_split_against() {
+bool c_polygon::can_split_against() const {
     return true;
 }
 
-c_polygon c_polygon::get_plane() {
+c_polygon c_polygon::get_plane() const {
     c_polygon polygon(a, b, c);
     return polygon;
 }
 
-bool c_polygon::can_light() {
+bool c_polygon::can_light() const {
     return true;
 }
 
