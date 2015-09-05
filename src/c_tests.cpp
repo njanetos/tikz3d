@@ -154,7 +154,7 @@ TEST_CASE("BSP creation") {
 
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
-    scene_manager.compile_bsp();
+    //scene_manager.compile_bsp();
 
     //std::cout << *scene_manager.root;
 

@@ -156,7 +156,7 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
 
         if (loc_a == 1) {
             polygon1->a = a;
-            polygon1->b =
+            //polygon1->b =
         }
         if (loc_b == 1) {
             line.set_points(a, c);
@@ -165,12 +165,11 @@ std::vector< std::vector<c_tikz_obj*> > c_polygon::split(c_polygon *against) {
             line.set_points(a, b);
         }
 
+        ret[0].push_back(polygon1);
+        ret[2].push_back(polygon2);
+
 
     }
-
-
-
-
 
     // Remaining cases: Two points above, one point below
     c_line line1, line2;
