@@ -46,7 +46,7 @@ c_tikz_obj* c_polygon::project(c_camera *cam) {
 std::string c_polygon::write() {
     std::stringstream sstm;
 
-    sstm << "\\fill[";
+    sstm << "\\filldraw[";
     if (params.size() > 0) {
         sstm << params[0];
     }
