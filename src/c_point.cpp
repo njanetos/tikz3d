@@ -87,6 +87,11 @@ bool c_point::can_light() const {
     return false;
 }
 
+bool c_point::will_split(const c_polygon& against) const {
+    return true;
+}
+
+
 std::ostream& c_point::print(std::ostream& stream) const {
     stream << "c_point: (" << x << ", " << y << ", " << z << ").\n";
     return stream;

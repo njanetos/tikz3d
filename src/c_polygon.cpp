@@ -44,6 +44,7 @@ c_tikz_obj* c_polygon::project(const c_camera& cam) const {
 }
 
 std::string c_polygon::write() const {
+
     std::stringstream sstm;
 
     sstm << "\\filldraw[";
@@ -75,6 +76,21 @@ c_point c_polygon::normal() const {
 
     c_point point(x, y, z);
     return point.normalize();
+}
+
+real c_polygon::area() const {
+
+    real x1, x2, x3, y1, y2, y3;
+
+    x1 = b.x - a.x;
+    x2 = b.y - a.y;
+    x3 = b.z - a.z;
+
+    y1 = c.x - a.x;
+    y2 = c.y - a.y;
+    y3 = c.z - a.z;
+
+    return 0.5*sqrt((x2*y3 - x3*y2)*(x2*y3 - x3*y2) + (x3*y1 - x1*y3)*(x3*y1 - x1*y3) + (x1*y2 - x2*y1)*(x1*y2 - x2*y1));
 }
 
 std::vector< std::vector<c_tikz_obj*> > c_polygon::split(const c_polygon& against) const {
@@ -302,6 +318,31 @@ c_polygon c_polygon::get_plane() const {
 
 bool c_polygon::can_light() const {
     return true;
+}
+
+bool c_polygon::will_split(const c_polygon& against) const {
+    char loc_a, loc_b, loc_c;
+
+    loc_a = utils::is_located(a, against);
+    loc_b = utils::is_located(b, against);
+    loc_c = utils::is_located(c, against);
+
+    if ((loc_a == 0 && loc_b == 2 && loc_c == 2) ||
+        (loc_a == 2 && loc_b == 0 && loc_c == 2) ||
+        (loc_a == 2 && loc_b == 2 && loc_c == 0) ||
+        (loc_a == 2 && loc_b == 0 && loc_c == 0) ||
+        (loc_a == 0 && loc_b == 2 && loc_c == 0) ||
+        (loc_a == 0 && loc_b == 0 && loc_c == 2) ||
+        (loc_a == 1 && loc_b == 2 && loc_c == 0) ||
+        (loc_a == 2 && loc_b == 1 && loc_c == 0) ||
+        (loc_a == 0 && loc_b == 2 && loc_c == 1) ||
+        (loc_a == 1 && loc_b == 0 && loc_c == 2) ||
+        (loc_a == 0 && loc_b == 1 && loc_c == 2) ||
+        (loc_a == 2 && loc_b == 0 && loc_c == 1)) {
+            return true;
+    }
+
+    return false;
 }
 
 std::ostream& c_polygon::print(std::ostream& stream) const {

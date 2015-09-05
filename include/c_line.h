@@ -42,6 +42,7 @@ class c_line : public c_tikz_obj
 
         bool can_split_against() const;
         bool can_light() const;
+        bool will_split(const c_polygon& against) const;
         c_polygon get_plane() const;
 
         real sx, sy, sz, ex, ey, ez;

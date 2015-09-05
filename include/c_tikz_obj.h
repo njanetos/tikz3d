@@ -60,6 +60,7 @@ class c_tikz_obj {
         std::vector<std::string> params;
 
         virtual bool can_split_against() const =0;
+        virtual bool will_split(const c_polygon& against) const =0;
         virtual bool can_light() const =0;
         virtual c_polygon get_plane() const =0;
 

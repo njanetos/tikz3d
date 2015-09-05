@@ -36,6 +36,7 @@ class c_polygon : public c_tikz_obj
         std::string write() const;
 
         c_point normal() const;
+        real area() const;
 
         c_tikz_obj* project(const c_camera& cam) const;
         c_tikz_obj* clone() const;
@@ -43,6 +44,7 @@ class c_polygon : public c_tikz_obj
 
         bool can_split_against() const;
         bool can_light() const;
+        bool will_split(const c_polygon& against) const;
         c_polygon get_plane() const;
 
         std::ostream& print(std::ostream& stream) const;

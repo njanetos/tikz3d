@@ -69,6 +69,11 @@ bool c_node::can_light() const {
     return false;
 }
 
+bool c_node::will_split(const c_polygon& against) const {
+    return true;
+}
+
+
 std::ostream& c_node::print(std::ostream& stream) const {
     return stream;
 }

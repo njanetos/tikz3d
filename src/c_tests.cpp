@@ -219,7 +219,7 @@ TEST_CASE("Plot 3d graph") {
     c_scene_manager scene_manager;
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
-    scene_manager.plot(func, -8, -8, 8, 8, 20, 20);
+    scene_manager.plot(func, -8, -8, 8, 8, 40, 40);
 
     c_point sun(0.5, 1, 1.5);
     scene_manager.light(sun);

@@ -130,6 +130,10 @@ c_polygon c_line::get_plane() const {
     return polygon;
 }
 
+bool c_line::will_split(const c_polygon& against) const {
+    return false;
+}
+
 bool c_line::can_light() const {
     return false;
 }

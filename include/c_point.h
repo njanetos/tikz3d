@@ -46,6 +46,7 @@ class c_point : public c_tikz_obj
 
         bool can_split_against() const;
         bool can_light() const;
+        bool will_split(const c_polygon& against) const;
         c_polygon get_plane() const;
 
         c_point operator+(const c_point& c) const {

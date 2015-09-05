@@ -12,22 +12,51 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
 
     // Take all the stuff in 'process', split it up, create the appropriate nodes, (keeping the first one), delete the rest.
 
-    // Find the first split-againstable object
-    int index = -1;
+    // Find all split-againstable objects
+    std::vector<c_tikz_obj*> split_againstable;
     for (size_t i = 0; i < process.size(); ++i) {
         if (process[i]->can_split_against()) {
-            index = i;
-            break;
+            split_againstable.push_back(process[i]);
         }
     }
 
     // Are there no splittable objects remaining?
     // Keep them all
-    if (index == -1 || process.size() == 1) {
+    if (split_againstable.size() == 0) {
         for (size_t i = 0; i < process.size(); ++i) {
             my_objs.push_back(process[i]->clone());
         }
     } else {
+
+        // We need to figure out which splittable object to use
+        size_t index;
+
+        // Check against the rest to see which splits
+        size_t best_index = 0;
+        size_t best_val = -1;
+        for (size_t i = 0; i < split_againstable.size(); ++i) {
+            size_t val = 0;
+            c_polygon plane = split_againstable[i]->get_plane();
+            for (size_t j = 0; j < process.size(); ++j) {
+                if (process[j] != split_againstable[i]) {
+                    if (process[j]->will_split(plane)) {
+                        ++val;
+                    }
+                }
+            }
+            if (val < best_val) {
+                best_index = i;
+                best_val = val;
+            }
+
+            if (val < process.size()/20) {
+                best_index = i;
+                break;
+            }
+        }
+
+        index = best_index;
+
         // We have a splittable object.
         // Add it to my objects.
         my_objs.push_back(process[index]->clone());
@@ -40,7 +69,7 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
 
         // Split the rest against me
         for (size_t i = 0; i < process.size(); ++i) {
-            if ((int) i != index) {
+            if (i != index) {
                 std::vector< std::vector<c_tikz_obj*> > splitted = process[i]->split(plane);
 
                 for (size_t j = 0; j < splitted[0].size(); ++j) {
