@@ -19,11 +19,11 @@ Currently only supports simple polygons from one camera direction and one lighti
 \filldraw[red] (0, 0, 12) -- (12, 0, 12) -- (12, 12, 12);
 \filldraw[red] (0, 0, 12) -- (12, 12, 12) -- (0, 12, 12);
 
-\filldraw[blue] (12, 12, 0) -- (12, 0, 12) -- (12, 0, 0);
-\filldraw[blue] (12, 12, 0) -- (12, 12, 12) -- (12, 0, 12);
+\filldraw[red] (12, 12, 0) -- (12, 0, 12) -- (12, 0, 0);
+\filldraw[red] (12, 12, 0) -- (12, 12, 12) -- (12, 0, 12);
 
-\filldraw[green] (12, 12, 0) -- (0, 12, 12) -- (0, 12, 0);
-\filldraw[green] (12, 12, 0) -- (12, 12, 12) -- (0, 12, 12);
+\filldraw[red] (12, 12, 0) -- (0, 12, 12) -- (0, 12, 0);
+\filldraw[red] (12, 12, 0) -- (12, 12, 12) -- (0, 12, 12);
 ```
 
 Must have 3 points, and a color. Any other parameters currently will not work. Each shape faces in the counter-clockwise direction, e.g., the points defining each triangle should wind around counter-clockwise as you face it. Otherwise, it will still render, but it will be lit as if from the other side.
@@ -34,5 +34,18 @@ Then, if this is saved as, e.g., `test.tex`, run
 ./tikz3D test.tex
 ```
 
-which produces `output.tex` containing the final rendering. See `test.pdf` for the final rendering.
+which produces `output.tex` containing a tikz file ready to be rendered.
+
+```
+\begin{tikzpicture}
+   \filldraw[red!90] (0.0176639, 14.7525) -- (-6.02147, 11.794) -- (0.0158339, 8.25517) -- (0.0176639, 14.7525);
+   \filldraw[red!90] (0.0176639, 14.7525) -- (0.0158339, 8.25517) -- (6.05556, 11.7914) -- (0.0176639, 14.7525);
+   \filldraw[red!63] (0.0139121, 1.43211) -- (-6.02147, 11.794) -- (-5.34839, 5.11444) -- (0.0139121, 1.43211);
+   \filldraw[red!63] (0.0139121, 1.43211) -- (0.0158339, 8.25517) -- (-6.02147, 11.794) -- (0.0139121, 1.43211);
+   \filldraw[red!23] (0.0139121, 1.43211) -- (6.05556, 11.7914) -- (5.37862, 5.11174) -- (0.0139121, 1.43211);
+   \filldraw[red!23] (0.0139121, 1.43211) -- (0.0158339, 8.25517) -- (6.05556, 11.7914) -- (0.0139121, 1.43211);
+\end{tikzpicture}
+```
+
+ See `test.pdf` for the final rendering.
 
