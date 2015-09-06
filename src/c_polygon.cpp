@@ -59,7 +59,10 @@ std::string c_polygon::write() const {
     for (size_t i = 1; i < params.size(); ++i) {
         sstm << ", " << params[i];
     }
-    sstm << ", " << color[0] << "!" << light[0];
+    if (params.size() > 0) {
+        sstm << ", ";
+    }
+    sstm << color[0] << "!" << light[0];
     sstm << "] (" << a.x << ", " << a.y << ") -- (" << b.x << ", " << b.y << ") -- (" << c.x << ", " << c.y << ") -- (" << a.x << ", " << a.y << ");\n";
 
     return sstm.str();

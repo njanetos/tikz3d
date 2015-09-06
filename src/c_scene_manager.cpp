@@ -33,11 +33,8 @@ void c_scene_manager::render_to_file(std::string filename, const c_camera& cam) 
 
     sstm << "\\begin{tikzpicture}\n";
 
-    sstm << "\\draw (0, 0)--(0,0.01);";
-
     for (size_t i = 0; i < screen_objects.size(); ++i) {
         sstm << "   " << screen_objects[i]->write();
-        sstm << "\n";
     }
 
     sstm << "\\end{tikzpicture}";
@@ -226,6 +223,11 @@ void c_scene_manager::light(c_point& sun) {
             }
         }
     }
+
+    //if (max_l == min_l) {
+        min_l = 0;
+        max_l = 1;
+    //}
 
     for (size_t i = 0; i < scene_objects.size(); ++i) {
         if (scene_objects[i]->can_light()) {

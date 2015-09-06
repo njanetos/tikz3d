@@ -8,7 +8,6 @@
 *.gcno
 *.gcda
 
-main.cpp
 /bin
 test.txt
 test3d.txt
@@ -18,3 +17,4 @@ tikz3d
 testBsp.txt
 testColor.txt
 testPlot.txt
+output.tex
