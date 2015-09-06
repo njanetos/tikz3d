@@ -219,11 +219,15 @@ TEST_CASE("Plot 3d graph") {
     c_scene_manager scene_manager;
     c_camera camera(62, 56, 48, -3.14/4, 0, -3.14/4);
 
-    scene_manager.plot(func, -8, -8, 8, 8, 40, 40);
+    scene_manager.plot(func, -8, -8, 8, 8, 60, 60);
 
     c_point sun(0.5, 1, 1.5);
     scene_manager.light(sun);
-    scene_manager.compile_bsp();
-    scene_manager.render_bsp("testPlot.txt", camera);
+    scene_manager.render_to_file("testPlot.txt", camera);
+
+    c_camera eye_1(62, 56, 48, -3.14/4, 0, -3.14/4);
+    c_camera eye_2(63, 55, 48, -3.14/4, 0, -3.14/4);
+
+    scene_manager.render_3d_to_file("testPlot3D.txt", eye_1, eye_2);
 
 }

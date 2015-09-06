@@ -4,7 +4,8 @@
 #include "c_line.h"
 
 c_polygon::c_polygon() {
-    //ctor
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_polygon::c_polygon(real ax,
@@ -26,12 +27,16 @@ c_polygon::c_polygon(real ax,
     c.x = cx;
     c.y = cy;
     c.z = cz;
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_polygon::c_polygon(c_point a, c_point b, c_point c) {
     this->a = a;
     this->b = b;
     this->c = c;
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_polygon::~c_polygon() {
@@ -54,6 +59,7 @@ std::string c_polygon::write() const {
     for (size_t i = 1; i < params.size(); ++i) {
         sstm << ", " << params[i];
     }
+    sstm << ", " << color[0] << "!" << light[0];
     sstm << "] (" << a.x << ", " << a.y << ") -- (" << b.x << ", " << b.y << ") -- (" << c.x << ", " << c.y << ") -- (" << a.x << ", " << a.y << ");\n";
 
     return sstm.str();
@@ -63,6 +69,8 @@ c_tikz_obj* c_polygon::clone() const {
 
     c_polygon *polygon = new c_polygon(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z);
     polygon->add_params(params);
+    polygon->color = color;
+    polygon->light = light;
     return polygon;
 
 }

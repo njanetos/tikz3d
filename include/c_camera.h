@@ -32,6 +32,8 @@ class c_camera
 
         virtual ~c_camera();
 
+        void point_at(const c_point& point);
+
         /**
          *  Visitor pattern method for projecting a 3D point.
          *

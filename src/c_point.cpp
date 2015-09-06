@@ -8,6 +8,8 @@ c_point::c_point() {
     this->y = 0;
     this->z = 0;
     this->twod = false;
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_point::c_point(real x, real y) {
@@ -15,6 +17,8 @@ c_point::c_point(real x, real y) {
     this->y = y;
     this->z = 0;
     this->twod = false;
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_point::c_point(real x, real y, real z) {
@@ -22,6 +26,8 @@ c_point::c_point(real x, real y, real z) {
     this->y = y;
     this->z = z;
     this->twod = true;
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_point::~c_point() {
@@ -44,6 +50,7 @@ std::string c_point::write() const {
     for (size_t i = 1; i < params.size(); ++i) {
         sstm << ", " << params[i];
     }
+    sstm << ", " << color[0] << "!" << light[0];
     sstm << "] (" << x << ", " << y << ") circ (1)";
 
     return sstm.str();

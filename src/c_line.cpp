@@ -11,6 +11,8 @@ c_line::c_line() {
     ex = 0;
     ey = 0;
     ez = 0;
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_line::c_line(real sx, real sy, real sz, real ex, real ey, real ez) {
@@ -20,6 +22,8 @@ c_line::c_line(real sx, real sy, real sz, real ex, real ey, real ez) {
     this->ex = ex;
     this->ey = ey;
     this->ez = ez;
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_line::~c_line() {
@@ -41,6 +45,7 @@ std::string c_line::write() const {
     for (size_t i = 1; i < params.size(); ++i) {
         sstm << ", " << params[i];
     }
+    sstm << ", " << color[0] << "!" << light[0];
     sstm << "] (" << sx << ", " << sy << ") -- (" << ex << ", " << ey << ");";
 
     return sstm.str();

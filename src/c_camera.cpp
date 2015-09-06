@@ -20,6 +20,10 @@ c_camera::~c_camera() {
     //dtor
 }
 
+void point_at(const c_point& point) {
+
+}
+
 c_tikz_obj* c_camera::project(const c_point& point3d) const {
 
     c_point proj = utils::project(point3d, *this);

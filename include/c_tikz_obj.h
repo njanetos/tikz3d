@@ -66,6 +66,9 @@ class c_tikz_obj {
 
         virtual std::ostream& print(std::ostream& stream) const =0;
 
+        std::vector<std::string> color;
+        std::vector<int> light;
+
 };
 
 std::ostream& operator<< (std::ostream& stream, const c_tikz_obj& obj);

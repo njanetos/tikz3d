@@ -60,6 +60,8 @@ void c_scene_manager::render_3d_to_file(std::string filename, const c_camera& ey
 
     sstm << "  \\draw (0, 0)--(0,0.01); \n";
 
+    sstm << "\\begin{scope}[transparency group, opacity=0.7]\n";
+
     std::vector<c_tikz_obj*> screen_objects(scene_objects.size());
 
     // Project everything for the first eye
@@ -69,11 +71,13 @@ void c_scene_manager::render_3d_to_file(std::string filename, const c_camera& ey
 
     // Write to file
     for (size_t i = 0; i < screen_objects.size(); ++i) {
-        screen_objects[i]->add_param("color=green");
-        screen_objects[i]->add_param("opacity=0.5");
+        screen_objects[i]->color[0] = "green";
         sstm << "   " << screen_objects[i]->write();
-        sstm << "\n";
     }
+
+    sstm << "\\end{scope}\n";
+
+    sstm << "\\begin{scope}[transparency group, opacity=0.7]";
 
     // De-allocate all of the screen objects
     for (size_t i = 0; i < screen_objects.size(); ++i) {
@@ -89,10 +93,8 @@ void c_scene_manager::render_3d_to_file(std::string filename, const c_camera& ey
 
     // Write to file
     for (size_t i = 0; i < screen_objects.size(); ++i) {
-        screen_objects[i]->add_param("color=red");
-        screen_objects[i]->add_param("opacity=0.5");
+        screen_objects[i]->color[0] = "red";
         sstm << "  " << screen_objects[i]->write();
-        sstm << "\n";
     }
 
     // De-allocate all of the screen objects
@@ -100,6 +102,8 @@ void c_scene_manager::render_3d_to_file(std::string filename, const c_camera& ey
         delete screen_objects[i];
     }
     screen_objects.resize(0);
+
+    sstm << "\\end{scope}\n";
 
     sstm << "\\end{tikzpicture}";
 
@@ -225,9 +229,7 @@ void c_scene_manager::light(c_point& sun) {
 
     for (size_t i = 0; i < scene_objects.size(); ++i) {
         if (scene_objects[i]->can_light()) {
-            std::stringstream sstm;
-            sstm << "black!" << (int) 100*(devs[i]-min_l)/(max_l - min_l);
-            scene_objects[i]->add_param(sstm.str());
+            scene_objects[i]->light[0] = (int) 100*(devs[i]-min_l)/(max_l - min_l);
         }
     }
 
@@ -260,6 +262,8 @@ void c_scene_manager::plot(real (*func)(real x, real y), real start_x, real star
     // Add all the right polygons, 2*(N-1)*(M-1) of them!
     c_point a, b, c, d;
     c_polygon poly1, poly2;
+
+    std::vector< std::vector< c_tikz_obj*> > temp_polys(2*(xdim-1), std::vector<c_tikz_obj*>(ydim-1));
     for (size_t i = 0; i < xdim-1; ++i) {
         for (size_t j = 0; j < ydim-1; ++j) {
             a.x = x[i];
@@ -286,8 +290,19 @@ void c_scene_manager::plot(real (*func)(real x, real y), real start_x, real star
             poly2.b = c;
             poly2.c = b;
 
-            add_to_scene(poly1);
-            add_to_scene(poly2);
+            temp_polys[2*i][j] = poly1.clone();
+            temp_polys[2*i+1][j] = poly2.clone();
+        }
+    }
+
+    // Add them to the scene and light them properly
+    c_point normal;
+    for (size_t i = 0; i < xdim-1; ++i) {
+        for (size_t j = 0; j < ydim-1; ++j) {
+            add_to_scene(*temp_polys[2*i][j]);
+            add_to_scene(*temp_polys[2*i+1][j]);
+            delete temp_polys[2*i][j];
+            delete temp_polys[2*i+1][j];
         }
     }
 }

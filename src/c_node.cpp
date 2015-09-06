@@ -4,7 +4,8 @@
 #include "c_polygon.h"
 
 c_node::c_node() {
-    //ctor
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_node::c_node(real x, real y, real z, std::string text) {
@@ -12,6 +13,8 @@ c_node::c_node(real x, real y, real z, std::string text) {
     this->y = y;
     this->z = z;
     this->text = text;
+    color.push_back("black");
+    light.push_back(100);
 }
 
 c_node::~c_node() {
@@ -32,6 +35,7 @@ std::string c_node::write() const {
     for (size_t i = 1; i < params.size(); ++i) {
         sstm << ", " << params[i];
     }
+    sstm << ", " << color[0] << "!" << light[0];
     sstm << "] at (" << x << ", " << y << ") {" << text << "};\n";
 
     return sstm.str();
