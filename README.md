@@ -26,10 +26,13 @@ Currently only supports simple polygons from one camera direction and one lighti
 \filldraw[green] (12, 12, 0) -- (12, 12, 12) -- (0, 12, 12);
 ```
 
-Must have 3 points, and a color. Any other parameters currently will not work. Then, if this is saved as, e.g., `test.tex`, run
+Must have 3 points, and a color. Any other parameters currently will not work. Each shape faces in the counter-clockwise direction, e.g., the points defining each triangle should wind around counter-clockwise as you face it. Otherwise, it will still render, but it will be lit as if from the other side.
+
+Then, if this is saved as, e.g., `test.tex`, run
 
 ```
 ./tikz3D test.tex
 ```
 
 which produces `output.tex` containing the final rendering. See `test.pdf` for the final rendering.
+
