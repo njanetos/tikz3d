@@ -231,7 +231,7 @@ void c_scene_manager::light(c_point& sun) {
 
     for (size_t i = 0; i < scene_objects.size(); ++i) {
         if (scene_objects[i]->can_light()) {
-            scene_objects[i]->light[0] = (int) 100*(devs[i]-min_l)/(max_l - min_l);
+            scene_objects[i]->light[0] = (int) 100*devs[i];
         }
     }
 
