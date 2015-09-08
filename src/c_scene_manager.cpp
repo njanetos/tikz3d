@@ -323,3 +323,109 @@ void c_scene_manager::axis(real x, real y, real z) {
     add_to_scene(linez);
 
 }
+
+void c_scene_manager::add_box(real sx, real sy, real sz, real ex, real ey, real ez, vector<string> params, string color) {
+
+    add_rectangle_z(ex, ey, sx, sy, sz, params, color, true);
+    add_rectangle_y(sx, sz, ex, ez, sy, params, color, false);
+    add_rectangle_x(sy, sz, ey, ez, sx, params, color, false);
+
+    add_rectangle_z(sx, sy, ex, ey, ez, params, color, false);
+    add_rectangle_y(ex, ez, sx, sz, ey, params, color, true);
+    add_rectangle_x(ey, ez, sy, sz, ex, params, color, true);
+
+}
+
+void c_scene_manager::add_rectangle_z(real sx, real sy, real ex, real ey, real z, vector<string> params, string color, bool flip) {
+
+    c_point point1(sx, sy, z);
+    c_point point2(sx, ey, z);
+    c_point point3(ex, ey, z);
+    c_point point4(ex, sy, z);
+
+    std::vector<c_point> points(4);
+    points[0] = point1;
+    points[1] = point2;
+    points[2] = point3;
+    points[3] = point4;
+
+    if (flip) {
+        points[1] = points[3];
+        points[3] = point2;
+    }
+
+    add_fan(points, params, color);
+
+}
+
+void c_scene_manager::add_rectangle_y(real sx, real sz, real ex, real ez, real y, vector<string> params, string color, bool flip) {
+
+    c_point point1(sx, y, sz);
+    c_point point2(sx, y, ez);
+    c_point point3(ex, y, ez);
+    c_point point4(ex, y, sz);
+
+    std::vector<c_point> points(4);
+    points[0] = point1;
+    points[1] = point2;
+    points[2] = point3;
+    points[3] = point4;
+
+    if (flip) {
+        points[1] = points[3];
+        points[3] = point2;
+    }
+
+    add_fan(points, params, color);
+
+}
+
+void c_scene_manager::add_rectangle_x(real sy, real sz, real ey, real ez, real x, vector<string> params, string color, bool flip) {
+
+    c_point point1(x, sy, sz);
+    c_point point2(x, ey, sz);
+    c_point point3(x, ey, ez);
+    c_point point4(x, sy, ez);
+
+    std::vector<c_point> points(4);
+    points[0] = point1;
+    points[1] = point2;
+    points[2] = point3;
+    points[3] = point4;
+
+    if (flip) {
+        points[1] = points[3];
+        points[3] = point2;
+    }
+
+    add_fan(points, params, color);
+
+}
+
+void c_scene_manager::add_fan(std::vector<c_point> points, vector<string> params, string color) {
+
+    if (points.size() < 3) {
+        return;
+    }
+
+    c_polygon polygon;
+
+    polygon.a = points[0];
+    polygon.b = points[1];
+    polygon.c = points[2];
+
+    polygon.color[0] = color;
+    polygon.add_params(params);
+
+    add_to_scene(polygon);
+
+    for (size_t i = 3; i < points.size(); ++i) {
+        polygon.a = points[0];
+        polygon.b = points[i-1];
+        polygon.c = points[i];
+
+        add_to_scene(polygon);
+
+    }
+
+}

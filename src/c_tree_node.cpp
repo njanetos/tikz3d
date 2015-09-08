@@ -180,7 +180,18 @@ void c_tree_node::project(c_camera& cam) {
 
     // New projection
     for (size_t i = 0; i < my_objs.size(); ++i) {
-        proj_objs.push_back(my_objs[i]->project(cam));
+        // Backface culling
+        if (my_objs[i]->can_split_against()) {
+            c_point norm = my_objs[i]->get_plane().normal();
+            c_point cam_point(cam.pos_x, cam.pos_y, cam.pos_z);
+
+            if (cam_point*norm < 0) {
+                proj_objs.push_back(my_objs[i]->project(cam));
+            }
+        } else {
+            proj_objs.push_back(my_objs[i]->project(cam));
+        }
+
     }
 
     // Project mah children

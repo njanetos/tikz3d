@@ -46,7 +46,7 @@ std::string c_line::write() const {
         sstm << ", " << params[i];
     }
     sstm << ", " << color[0] << "!" << light[0];
-    sstm << "] (" << sx << ", " << sy << ") -- (" << ex << ", " << ey << ");";
+    sstm << "] (" << sx << ", " << sy << ") -- (" << ex << ", " << ey << ");\n";
 
     return sstm.str();
 }
@@ -54,6 +54,8 @@ std::string c_line::write() const {
 c_tikz_obj* c_line::clone() const {
     c_line *line = new c_line(sx, sy, sz, ex, ey, ez);
     line->add_params(params);
+    line->color = color;
+    line->light = light;
     return line;
 }
 

@@ -10,6 +10,8 @@
 #include "c_line.h"
 #include "c_tree_node.h"
 
+using namespace std;
+
 class c_scene_manager {
     public:
 
@@ -60,6 +62,14 @@ class c_scene_manager {
         void render_bsp(std::string filename, c_camera& cam);
 
         void plot(real (*func)(real x, real y), real start_x, real start_y,  real end_x, real end_y, size_t xdim, size_t ydim);
+
+        void add_box(real sx, real sy, real sz, real ex, real ey, real ez, vector<string> params, string color);
+
+        void add_rectangle_z(real sx, real sy, real ex, real ey, real z, vector<string> params, string color, bool flip);
+        void add_rectangle_y(real sx, real sz, real ex, real ez, real y, vector<string> params, string color, bool flip);
+        void add_rectangle_x(real sy, real sz, real ey, real ez, real x, vector<string> params, string color, bool flip);
+
+        void add_fan(std::vector<c_point> points, vector<string> params, string color);
 
         c_tree_node *root;
 
