@@ -29,7 +29,7 @@ Currently only supports simple polygons. Takes a text file with tikz code, but w
 \filldraw[red] (12, 12, 0) -- (12, 12, 12) -- (0, 12, 12);
 ```
 
-`\camera` sets the camera location. The first three coordinates are its position, the last three are its Euler rotation angles. `\sun` adds in a sun for lighting, at the given location, pointing at `(0, 0, 0)`. 
+`\camera` sets the camera location. The first three coordinates are its position, the last three are its Euler rotation angles. `\sun` adds in a sun for lighting, at the given location, pointing at `(0, 0, 0)`.
 
 Must have 3 points, and a color. Any other parameters currently will not work. Each shape faces in the counter-clockwise direction, e.g., the points defining each triangle should wind around counter-clockwise as you face it. Otherwise, it will still render, but it will be lit as if from the other side.
 
@@ -52,5 +52,46 @@ which produces `output.tex` containing a tikz file ready to be rendered.
 \end{tikzpicture}
 ```
 
- See `test.pdf` for the final rendering.
+For convinience, there are some additional tikz-like functions supported. For example,
 
+```
+\camera (96, 96, 96, -0.78540, 0, -0.78540);
+\sun (1, 1.5, 2);
+
+\box[color=blue] (0, 0, 0) -- (3, 3, 3);
+```
+
+will draw a blue box:
+
+[!["Blue box."](https://github.com/njanetos/tikz3d/raw/master/example.png)](https://github.com/njanetos/tikz3d/raw/master/example.png)
+
+Multiple items may not render the way you wish. For example,
+
+```
+\camera (96, 96, 96, -0.78540, 0, -0.78540);
+\sun (1, 1.5, 2);
+
+\rectangle_x[color=red] (3, -3) -- (6, 6, 3);
+
+\box[color=green] (-1.5, -1.5, -1.5) -- (3.5, 3.5, 3.5);
+```
+will produce
+
+[!["Broken."](https://github.com/njanetos/tikz3d/raw/master/example_no_bsp.png)](https://github.com/njanetos/tikz3d/raw/master/example_no_bsp.png)
+
+The rectangle appears to be behind the box, even though it is intersecting, simply because the box was drawn second. To correct this, turn on binary space partitioning using `\bsp`:
+
+```
+\bsp[]
+
+\camera (96, 96, 96, -0.78540, 0, -0.78540);
+\sun (1, 1.5, 2);
+
+\rectangle_x[color=red] (3, -3) -- (6, 6, 3);
+
+\box[color=green] (-1.5, -1.5, -1.5) -- (3.5, 3.5, 3.5);
+```
+
+which produces
+
+[!["Fixed."](https://github.com/njanetos/tikz3d/raw/master/example_bsp.png)](https://github.com/njanetos/tikz3d/raw/master/example_bsp.png)

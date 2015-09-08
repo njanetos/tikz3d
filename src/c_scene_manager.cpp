@@ -186,8 +186,6 @@ void c_scene_manager::render_bsp(std::string filename, c_camera& cam) {
 
     sstm << "\\begin{tikzpicture}\n";
 
-    sstm << "  \\draw (0, 0)--(0,0.01); \n";
-
     root->project(cam);
     root->render(sstm, cam);
 

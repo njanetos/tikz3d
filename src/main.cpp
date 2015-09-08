@@ -144,6 +144,69 @@ int main (int argc, char *argv[]) {
 
             scene_manager.add_box(points[0], points[1], points[2], points[3], points[4], points[5], params_str, color);
 
+        } else if (QString::compare(type, "rectangle_x") == 0) {
+
+            // Get color
+            string color;
+            vector<string> params_str(0);
+            for(size_t j = 0; j < params.size(); ++j) {
+                if (params[j].contains("color=")) {
+                    params[j].replace("color=", "");
+                    color = params[j].toStdString();
+                    params.erase(params.begin()+j);
+                }
+            }
+
+            for(size_t j = 0; j < params.size(); ++j) {
+                params_str.push_back(params[j].toStdString());
+            }
+
+            bool flip = (points[0] > points[2]);
+
+            scene_manager.add_rectangle_x(points[0], points[1], points[2], points[3], points[4], params_str, color, flip);
+
+        } else if (QString::compare(type, "rectangle_y") == 0) {
+
+            // Get color
+            string color;
+            vector<string> params_str(0);
+            for(size_t j = 0; j < params.size(); ++j) {
+                if (params[j].contains("color=")) {
+                    params[j].replace("color=", "");
+                    color = params[j].toStdString();
+                    params.erase(params.begin()+j);
+                }
+            }
+
+            for(size_t j = 0; j < params.size(); ++j) {
+                params_str.push_back(params[j].toStdString());
+            }
+
+            bool flip = (points[0] > points[2]);
+
+            scene_manager.add_rectangle_y(points[0], points[1], points[2], points[3], points[4], params_str, color, flip);
+
+        } else if (QString::compare(type, "rectangle_z") == 0) {
+
+            // Get color
+            string color;
+            vector<string> params_str(0);
+            for(size_t j = 0; j < params.size(); ++j) {
+                if (params[j].contains("color=")) {
+                    params[j].replace("color=", "");
+                    color = params[j].toStdString();
+                    params.erase(params.begin()+j);
+                }
+            }
+
+            for(size_t j = 0; j < params.size(); ++j) {
+                params_str.push_back(params[j].toStdString());
+            }
+
+            bool flip = (points[0] > points[2]);
+
+            scene_manager.add_rectangle_z(points[0], points[1], points[2], points[3], points[4], params_str, color, flip);
+
         } else if (type.contains("sun")) {
             sun.x = points[0];
             sun.y = points[1];
@@ -160,6 +223,7 @@ int main (int argc, char *argv[]) {
     if (bsp) {
         scene_manager.compile_bsp();
         scene_manager.render_bsp("output.tex", camera);
+        cout << "BSP";
     } else {
         scene_manager.render_to_file("output.tex", camera);
     }

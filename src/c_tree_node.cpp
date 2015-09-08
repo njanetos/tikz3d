@@ -34,28 +34,39 @@ c_tree_node::c_tree_node(std::vector<c_tikz_obj*> process, size_t depth) {
         // Check against the rest to see which splits
         size_t best_index = 0;
         size_t best_val = -1;
-        for (size_t i = 0; i < split_againstable.size(); ++i) {
+        for (size_t i = 0; i < process.size(); ++i) {
             size_t val = 0;
-            c_polygon plane = split_againstable[i]->get_plane();
-            for (size_t j = 0; j < process.size(); ++j) {
-                if (process[j] != split_againstable[i]) {
-                    if (process[j]->will_split(plane)) {
-                        ++val;
+            if (process[i]->can_split_against()) {
+                c_polygon plane = process[i]->get_plane();
+                for (size_t j = 0; j < process.size(); ++j) {
+                    if (j != i) {
+                        if (process[j]->will_split(plane)) {
+                            ++val;
+                        }
                     }
                 }
-            }
-            if (val < best_val) {
-                best_index = i;
-                best_val = val;
-            }
+                if (val < best_val) {
+                    best_index = i;
+                    best_val = val;
+                }
 
-            if (val < process.size()/20) {
-                best_index = i;
-                break;
+                if (val < process.size()/20) {
+                    best_index = i;
+                    break;
+                }
+
             }
         }
 
         index = best_index;
+
+        // Temporary
+        for (size_t i = 0; i < process.size(); ++i) {
+            if (process[i]->can_split_against()) {
+                index = i;
+                break;
+            }
+        }
 
         // We have a splittable object.
         // Add it to my objects.
@@ -178,19 +189,19 @@ void c_tree_node::project(c_camera& cam) {
     }
     proj_objs.resize(0);
 
-    // New projection
+    // New projectionz
     for (size_t i = 0; i < my_objs.size(); ++i) {
         // Backface culling
-        if (my_objs[i]->can_split_against()) {
-            c_point norm = my_objs[i]->get_plane().normal();
-            c_point cam_point(cam.pos_x, cam.pos_y, cam.pos_z);
+        //if (my_objs[i]->can_split_against()) {
+        //    c_point norm = my_objs[i]->get_plane().normal();
+        //    c_point cam_point(cam.pos_x, cam.pos_y, cam.pos_z);
 
-            if (cam_point*norm < 0) {
-                proj_objs.push_back(my_objs[i]->project(cam));
-            }
-        } else {
+        //    if (cam_point*norm < 0) {
+        //        proj_objs.push_back(my_objs[i]->project(cam));
+        //    }
+        //} else {
             proj_objs.push_back(my_objs[i]->project(cam));
-        }
+        //}
 
     }
 
@@ -214,6 +225,10 @@ std::ostream& operator<< (std::ostream& stream, const c_tree_node& obj) {
 
     for (size_t i = 0; i < obj.my_objs.size(); ++i) {
         stream << *(obj.my_objs[i]);
+    }
+
+    for (size_t i = 0; i < obj.proj_objs.size(); ++i) {
+        stream << *(obj.proj_objs[i]);
     }
 
     if (obj.left != NULL) {

@@ -52,7 +52,7 @@ std::string c_polygon::write() const {
 
     std::stringstream sstm;
 
-    sstm << "\\filldraw[";
+    sstm << "  \\filldraw[";
     if (params.size() > 0) {
         sstm << params[0];
     }
@@ -63,7 +63,7 @@ std::string c_polygon::write() const {
         sstm << ", ";
     }
     sstm << color[0] << "!" << light[0];
-    sstm << "] (" << a.x << ", " << a.y << ") -- (" << b.x << ", " << b.y << ") -- (" << c.x << ", " << c.y << ") -- (" << a.x << ", " << a.y << ");\n";
+    sstm << "] (" << a.x << ", " << a.y << ") -- (" << b.x << ", " << b.y << ") -- (" << c.x << ", " << c.y << ") -- cycle;\n";
 
     return sstm.str();
 }
