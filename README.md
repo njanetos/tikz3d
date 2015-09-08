@@ -95,3 +95,5 @@ The rectangle appears to be behind the box, even though it is intersecting, simp
 which produces
 
 [!["Fixed."](https://github.com/njanetos/tikz3d/raw/master/example_bsp.png)](https://github.com/njanetos/tikz3d/raw/master/example_bsp.png)
+
+Warning: Binary space partitioning will generally increase the number of tikz commands to be drawn in the output file by an order of magnitude. 
