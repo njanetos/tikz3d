@@ -1,4 +1,4 @@
-# tikz3D
+# tikz3D 0.1
 
 [![Build Status](https://travis-ci.org/njanetos/tikz3d.svg?branch=master)](https://travis-ci.org/njanetos/tikz3d)
 [![Coverage Status](https://coveralls.io/repos/njanetos/tikz3d/badge.svg?branch=master&service=github)](https://coveralls.io/github/njanetos/tikz3d?branch=master)
@@ -96,4 +96,4 @@ which produces
 
 [!["Fixed."](https://github.com/njanetos/tikz3d/raw/master/example_bsp.png)](https://github.com/njanetos/tikz3d/raw/master/example_bsp.png)
 
-Warning: Binary space partitioning will generally increase the number of tikz commands to be drawn in the output file by an order of magnitude. 
+Warning: Binary space partitioning will generally increase the number of tikz commands to be drawn in the output file by an order of magnitude.
