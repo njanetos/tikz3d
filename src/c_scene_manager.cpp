@@ -91,7 +91,7 @@ void c_scene_manager::render_3d_to_file(std::string filename, const c_camera& ey
     // Write to file
     for (size_t i = 0; i < screen_objects.size(); ++i) {
         screen_objects[i]->color[0] = "cyan";
-        screen_objects[i]->add_param("xshift=-0.9in");
+        screen_objects[i]->add_param("xshift=0in");
         sstm << "  " << screen_objects[i]->write();
     }
 

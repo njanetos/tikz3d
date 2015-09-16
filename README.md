@@ -7,13 +7,15 @@ Converts 3d specified tikz files into 2d tikz files suitable for rendering.
 
 ## Installation
 
+Run the makefile:
+
 ```
 make
 ```
 
 ## Usage
 
-Currently only supports simple polygons. Takes a text file with tikz code, but with 3D coordinates:
+Currently supports polygons and lines. Also has convinience functions for drawing boxes and rectangle. Takes a text file with tikz code, but with 3D coordinates, e.g.,
 
 ```
 \camera (48, 48, 48, -0.78540, 0, -0.78540);
@@ -43,12 +45,12 @@ which produces `output.tex` containing a tikz file ready to be rendered.
 
 ```
 \begin{tikzpicture}
-   \filldraw[red!78] (0.0176639, 14.7525) -- (-6.02147, 11.794) -- (0.0158339, 8.25517) -- (0.0176639, 14.7525);
-   \filldraw[red!78] (0.0176639, 14.7525) -- (0.0158339, 8.25517) -- (6.05556, 11.7914) -- (0.0176639, 14.7525);
-   \filldraw[red!78] (0.0139121, 1.43211) -- (-6.02147, 11.794) -- (-5.34839, 5.11444) -- (0.0139121, 1.43211);
-   \filldraw[red!78] (0.0139121, 1.43211) -- (0.0158339, 8.25517) -- (-6.02147, 11.794) -- (0.0139121, 1.43211);
-   \filldraw[red!21] (0.0139121, 1.43211) -- (6.05556, 11.7914) -- (5.37862, 5.11174) -- (0.0139121, 1.43211);
-   \filldraw[red!21] (0.0139121, 1.43211) -- (0.0158339, 8.25517) -- (6.05556, 11.7914) -- (0.0139121, 1.43211);
+   \filldraw[red!78] (0.0176639, 14.7525) -- (-6.02147, 11.794) -- (0.0158339, 8.25517) -- cycle;
+   \filldraw[red!78] (0.0176639, 14.7525) -- (0.0158339, 8.25517) -- (6.05556, 11.7914) -- cycle;
+   \filldraw[red!78] (0.0139121, 1.43211) -- (-6.02147, 11.794) -- (-5.34839, 5.11444) -- cycle;
+   \filldraw[red!78] (0.0139121, 1.43211) -- (0.0158339, 8.25517) -- (-6.02147, 11.794) -- cycle;
+   \filldraw[red!21] (0.0139121, 1.43211) -- (6.05556, 11.7914) -- (5.37862, 5.11174) -- cycle;
+   \filldraw[red!21] (0.0139121, 1.43211) -- (0.0158339, 8.25517) -- (6.05556, 11.7914) -- cycle;
 \end{tikzpicture}
 ```
 
@@ -64,6 +66,17 @@ For convinience, there are some additional tikz-like functions supported. For ex
 will draw a blue box:
 
 [!["Blue box."](https://github.com/njanetos/tikz3d/raw/master/example.png)](https://github.com/njanetos/tikz3d/raw/master/example.png)
+
+```
+\camera (96, 96, 96, -0.78540, 0, -0.78540);
+\sun (1, 1.5, 2);
+
+\rectangle_x[color=blue] (3, -3) -- (6, 6)  (3);
+```
+
+will draw a rectangle, aligned along the `x`-axis. The first coordinate is the starting `y, z` coordinate, the second is the ending `y, z` coordinate. The last number is the position of the rectangle along the `x` axis. Similar functions called `\rectangle_y` and `\rectangle_z` draw rectangles aligned along the `y` and `z` axises.
+
+### Binary space partitioning
 
 Multiple items may not render the way you wish. For example,
 

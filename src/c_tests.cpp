@@ -130,7 +130,7 @@ TEST_CASE("Render to file") {
     scene_manager.render_to_file("test.txt", camera);
 
     c_camera eye_1(62, 56, 48, -3.14/4, 0, -3.14/4);
-    c_camera eye_2(65, 53, 48, -3.14/4, 0, -3.14/4);
+    c_camera eye_2(65.25, 52.75, 48, -3.14/4, 0, -3.14/4-0.058);
 
     // Render it to file as a 3D glasses projection.
     scene_manager.render_3d_to_file("test3d.txt", eye_1, eye_2);
