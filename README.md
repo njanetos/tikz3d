@@ -1,5 +1,6 @@
 # tikz3D 0.1
 
+[![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/0.1.0/wip.svg)](http://www.repostatus.org/#wip) 
 [![Build Status](https://travis-ci.org/njanetos/tikz3d.svg?branch=master)](https://travis-ci.org/njanetos/tikz3d)
 [![Coverage Status](https://coveralls.io/repos/njanetos/tikz3d/badge.svg?branch=master&service=github)](https://coveralls.io/github/njanetos/tikz3d?branch=master)
 
