@@ -1,8 +1,6 @@
 # tikz3D 0.1
 
 [![Project Status: Wip - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://img.shields.io/badge/status-WIP-yellow.svg)](https://img.shields.io/badge/status-WIP-yellow.svg)
-[![Build Status](https://travis-ci.org/njanetos/tikz3d.svg?branch=master)](https://travis-ci.org/njanetos/tikz3d)
-[![Coverage Status](https://coveralls.io/repos/njanetos/tikz3d/badge.svg?branch=master&service=github)](https://coveralls.io/github/njanetos/tikz3d?branch=master)
 
 Converts 3d specified tikz files into 2d tikz files suitable for rendering.
 
@@ -15,7 +13,7 @@ sudo apt-get install qt5-default
 make
 ```
 
-## Usage
+## Basic usage
 
 Currently supports polygons and lines. Also has convinience functions for drawing boxes and rectangle. Takes a text file with tikz code, but with 3D coordinates, e.g.,
 
