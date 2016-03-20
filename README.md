@@ -15,7 +15,7 @@ make
 
 ## Basic usage
 
-Currently supports polygons and lines. Also has convinience functions for drawing boxes and rectangle. Takes a text file with tikz code, but with 3D coordinates, e.g.,
+Currently supports polygons and lines. Also has convenience functions for drawing boxes and rectangle. Takes a text file with tikz code, but with 3D coordinates, e.g.,
 
 ```
 \camera (48, 48, 48, -0.78540, 0, -0.78540);
@@ -54,7 +54,7 @@ which produces `output.tex` containing a tikz file ready to be rendered.
 \end{tikzpicture}
 ```
 
-For convinience, there are some additional tikz-like functions supported. For example,
+For convenience, there are some additional tikz-like functions supported. For example,
 
 ```
 \camera (96, 96, 96, -0.78540, 0, -0.78540);
